@@ -11,6 +11,7 @@ export const onRequest: PagesFunction<CustomEnv> = async ({ env, request }) => {
     status: 1
   };
   switch (method) {
+    case 'GET':
     case 'POST':
     case 'PUT': {
       // Track
