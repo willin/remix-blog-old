@@ -14,7 +14,7 @@ export class PageViewModel {
   async find(slug: string) {
     const result = await this.db.get(slug, 'text');
     const pv = Number(result || 0) + 1;
-    await this.db.put(slug, pv.toString(), 'text');
+    await this.db.put(slug, pv.toString());
     return { slug, pv } as PageView;
   }
 
