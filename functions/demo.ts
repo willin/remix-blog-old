@@ -1,4 +1,4 @@
-export const onRequestGet = () => {
+export const onRequestGet = async () => {
   const total = await VIEWS.get('total');
   const data = {
     hello: 'world',
