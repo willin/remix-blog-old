@@ -1760,10 +1760,20 @@ eslint-config-airbnb-base@*:
     object.entries "^1.1.5"
     semver "^6.3.0"
 
-eslint-config-prettier@*:
+eslint-config-prettier@*, eslint-config-prettier@^8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz#f7471b20b6fe8a9a9254cc684454202886a2dd7a"
   integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
+
+eslint-config-willin@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/eslint-config-willin/-/eslint-config-willin-1.0.7.tgz#0fc5b0b1ece6eb9a6098a6617e146a3a024a1eab"
+  integrity sha512-+QECXMVWnjKWfkRa8vznQvzGf7QNpcONBz5Fagp5boUPZnQb/g5BqArTvaTNlzZiJ8Ae7lh50IS1UJhFayLD7Q==
+  dependencies:
+    eslint-config-airbnb-base "*"
+    eslint-config-prettier "^8.3.0"
+    eslint-plugin-import "*"
+    v0 "*"
 
 eslint-import-resolver-node@^0.3.6:
   version "0.3.6"
@@ -1793,7 +1803,7 @@ eslint-module-utils@^2.7.1:
     find-up "^2.1.0"
     pkg-dir "^2.0.0"
 
-eslint-plugin-import@^2.25.3:
+eslint-plugin-import@*, eslint-plugin-import@^2.25.3:
   version "2.25.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.25.3.tgz#a554b5f66e08fb4f6dc99221866e57cfff824766"
   integrity sha512-RzAVbby+72IB3iOEL8clzPLzL3wpDrlwjsTBAQXgyp5SeTqqY+0bFubwuo+y/HLhNZcXV4XqTBO4LGsfyHIDXg==
@@ -4942,6 +4952,11 @@ uvu@^0.5.0:
     kleur "^4.0.3"
     sade "^1.7.3"
     totalist "^2.0.0"
+
+v0@*:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/v0/-/v0-1.1.1.tgz#e2f8a8d4f19c4f430acdb4b46ba827362cae2cd4"
+  integrity sha512-pI74QB4o2aClvXTd3GhEpVJB8f+9tp8sPXe12gyPRcHMRs4eUsVxt4oeTy5rFlBNMyJJLIBQ2seGanfYz9fisA==
 
 v8-compile-cache@^2.0.3:
   version "2.3.0"
