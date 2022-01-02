@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run build:css && cross-env NODE_ENV=production remix build",
     "dev": "cross-env NODE_ENV=development run-p dev:*",
-    "local": "cross-env NODE_ENV=development run-p dev:css local:remix",
+    "local": "cross-env NODE_ENV=local run-p dev:css local:remix",
     "local:remix": "remix dev",
     "build:css": "postcss styles/**/*.css --base styles --dir app/styles",
     "build:css:prod": "npm run build:css -- --env production",
@@ -39,6 +39,7 @@
     "cross-env": "^7.0.3",
     "esbuild": "0.13.14",
     "eslint": "^8.5.0",
+    "eslint-config-willin": "^1.0.7",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.3",
     "npm-run-all": "^4.1.5",
