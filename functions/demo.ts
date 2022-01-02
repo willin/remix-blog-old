@@ -1,5 +1,5 @@
-export const onRequestGet = async () => {
-  const total = await (VIEWS as KVNamespace).get('total').catch((e) => e);
+export const onRequestGet = async ({ env }: EventContext) => {
+  const total = await (env.VIEWS as KVNamespace).get('total').catch((e) => e);
   const data = {
     hello: 'world',
     total

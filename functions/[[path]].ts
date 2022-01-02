@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createPagesFunctionHandler } from '@remix-run/cloudflare-pages';
 
 // @ts-ignore
