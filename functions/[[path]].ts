@@ -8,11 +8,4 @@ const handleRequest = createPagesFunctionHandler({
   build
 });
 
-export const onRequest: PagesFunction = (context) => {
-  const url = new URL(context.request.url);
-  if (url.pathname.startsWith('/cf/')) {
-    return new Response();
-  }
-
-  return handleRequest(context);
-};
+export const onRequest: PagesFunction = (context) => handleRequest(context);

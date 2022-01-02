@@ -2,10 +2,7 @@ import type { CustomEnv } from '../shared/model';
 import { PageViewModel } from '../shared/model';
 import { JsonResponse } from '../shared/utils';
 
-export const onRequestGet: PagesFunction<CustomEnv> = async ({
-  env,
-  request
-}) => {
+export const onRequest: PagesFunction<CustomEnv> = async ({ env, request }) => {
   const { method } = request;
   const url = new URL(request.url);
 
