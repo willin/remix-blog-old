@@ -1,10 +1,19 @@
-/* eslint-disable */
-export async function onRequest(context) {
-  context.data.timestamp = Date.now();
+import { JsonResponse } from './shared/utils';
+
+export const onRequest: PagesFunction<{
+  NODE_ENV: string;
+}> = async function onRequest(context) {
+  const { env } = context;
+  const timestamp = Date.now();
   const res = await context.next().catch((e) => {
-    return new Response(e, { status: 500 });
+    result = {
+      status: 0,
+      error: env.NODE_ENV === 'production' ? 'Server Error!' : (e as string)
+    };
+
+    return JsonResponse(result, 500);
   });
-  const delta = Date.now() - context.data.timestamp;
+  const delta = Date.now() - timestamp;
   res.headers.set('x-response-timing', delta);
   return res;
-}
+};
