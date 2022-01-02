@@ -1,6 +1,8 @@
 export const onRequestGet = () => {
+  const total = await VIEWS.get('total');
   const data = {
-    hello: 'world'
+    hello: 'world',
+    total
   };
   const json = JSON.stringify(data, null, 2);
 
