@@ -14,7 +14,8 @@ export const onRequestGet: PagesFunction<CustomEnv> = async ({
     status: 1
   };
   switch (method) {
-    case 'POST': {
+    case 'POST':
+    case 'PUT': {
       // Track
       const slug = url.searchParams.get('slug') || 'total';
       const data = await pv.find(slug);
