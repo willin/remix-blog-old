@@ -14,7 +14,7 @@ export const onRequestGet: PagesFunction<CustomEnv> = async ({
     status: 1
   };
   switch (method) {
-    case 'PUT': {
+    case 'POST': {
       // Track
       const slug = url.searchParams.get('slug') || 'total';
       const data = await pv.find(slug);
@@ -26,7 +26,7 @@ export const onRequestGet: PagesFunction<CustomEnv> = async ({
     }
     default: {
       // Get List
-      const slugs = url.searchParams.get('slugs') || '';
+      const slugs = url.searchParams.get('slugs') || 'total';
       const data = await pv.list(slugs.split(','));
       Object.assign(result, { data });
     }
