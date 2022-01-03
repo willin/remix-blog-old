@@ -45,11 +45,14 @@ export type LoaderData = {
   };
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request, context }) => {
   const { getTheme } = await themeSessionResolver(request);
-  const pv = await (VIEWS as KVNamespace).get('total', 'text');
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  const pv = await (context.env.VIEWS as KVNamespace).get('total', 'text');
   const data: LoaderData = {
     pv,
+    // eslint-disable-next-line
+    env: context.env,
     requestInfo: {
       session: {
         theme: getTheme()
