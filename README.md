@@ -1,22 +1,13 @@
-# Welcome to Remix!
+# Willin.Wang
 
-- [Remix Docs](https://remix.run/docs)
+[![GitHub followers](https://img.shields.io/github/followers/willin?logo=github&style=flat-square&label=)](https://github.com/willin) [![GPL 3.0 License][https://img.shields.io/badge/license-gpl%203.0%20license-blue.svg?style=flat-square]][license]
 
-## Development
+[中文说明](CONTRIBUTING.md#简体中文)
 
-You will be utlizing Wrangler for local development to emulate the Cloudflare runtime. This is already wired up in your package.json as the `dev` script:
+## Contributing
 
-```sh
-# start the remix dev server and wrangler
-$ npm run dev
-```
+Read [CONTRIBUTING.md](CONTRIBUTING.md)
 
-Open up [http://127.0.0.1:8788](http://127.0.0.1:8788) and you should be ready to go!
+## LICENSE
 
-## Deployment
-
-Cloudflare Pages are currently only deployable through their Git provider integrations.
-
-If you don't already have an account, then [create a Cloudflare account here](https://dash.cloudflare.com/sign-up/pages) and after verifying your email address with Cloudflare, go to your dashboard and follow the [Cloudflare Pages deployment guide](https://developers.cloudflare.com/pages/framework-guides/deploy-anything).
-
-Configure the "Build command" should be set to `npm run build`, and the "Build output directory" should be set to `public`.
+This material is available for private, non-commercial use under the [GPL version 3](LICENSE). If you would like to use this material to conduct your own workshop, please contact me at <willinwang+license@gmail.com>

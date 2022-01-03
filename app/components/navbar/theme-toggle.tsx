@@ -8,12 +8,13 @@ export const useLoaded = () => {
   return loaded;
 };
 
-export default function ThemeToggle() {
+export const ThemeToggle = () => {
   const [theme, setTheme] = useTheme();
   const loaded = useLoaded();
 
   return (
     <button
+      className='absolute right-[80px] top-[21px] text-secondary dark:text-primary'
       aria-label='Toggle Theme'
       type='button'
       title='Toggle Theme'
@@ -22,4 +23,4 @@ export default function ThemeToggle() {
       {theme === Theme.LIGHT && loaded && <MoonIcon />}
     </button>
   );
-}
+};
