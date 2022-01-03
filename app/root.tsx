@@ -48,6 +48,7 @@ export type LoaderData = {
 export const loader: LoaderFunction = async ({ request }) => {
   const { getTheme } = await themeSessionResolver(request);
   const data: LoaderData = {
+    env: process.env,
     requestInfo: {
       session: {
         theme: getTheme()
@@ -96,6 +97,9 @@ function App() {
             <div className='badge badge-accent'>accent</div>
             <div className='badge badge-ghost'>ghost</div>
 
+            <div className='card'>
+              <pre>{JSON.stringify(data, null, 2)}</pre>
+            </div>
             <Outlet />
           </main>
         </div>
