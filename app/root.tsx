@@ -47,8 +47,9 @@ export type LoaderData = {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { getTheme } = await themeSessionResolver(request);
+  const pv = await (VIEWS as KVNamespace).get('total', 'text');
   const data: LoaderData = {
-    env: process.env,
+    pv,
     requestInfo: {
       session: {
         theme: getTheme()
