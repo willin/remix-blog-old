@@ -48,11 +48,10 @@ export type LoaderData = {
 export const loader: LoaderFunction = async ({ request, context }) => {
   const { getTheme } = await themeSessionResolver(request);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const pv = await (context.env.VIEWS as KVNamespace).get('total', 'text');
+  // const pv = await (context.env.VIEWS as KVNamespace).get('total', 'text');
   const data: LoaderData = {
-    pv,
     // eslint-disable-next-line
-    env: context.env,
+    env: context,
     requestInfo: {
       session: {
         theme: getTheme()
