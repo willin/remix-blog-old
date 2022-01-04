@@ -14,7 +14,7 @@ const Path = (props) => (
 export const LocaleToggle = ({ toggle }: { toggle: () => void }) => (
   <button
     onClick={toggle}
-    className='absolute right-[23px] top-[23px]'
+    className='absolute right-[23px] top-[23px] text-secondary dark:text-primary'
     aria-label='Change Language'
     title='Change Language'>
     <svg width='32px' height='32px' viewBox='0 0 23 23'>

@@ -25,6 +25,7 @@ import cls from 'classnames';
 import styles from './styles/global.css';
 import { themeSessionResolver } from './services/theme.server';
 import DrawerMenu from './components/navbar/drawer';
+import { ViewsModel } from './services/views.server';
 // import Logo from './components/navbar/logo';
 
 export const links: LinksFunction = () => [
@@ -45,13 +46,33 @@ export type LoaderData = {
   };
 };
 
-export const loader: LoaderFunction = async ({ request, context }) => {
+export type CustomEnv = {
+  VIEWS: KVNamespace;
+};
+
+export type AppContext = {
+  env: CustomEnv;
+};
+
+export const loader: LoaderFunction = async ({
+  params,
+  request,
+  context = {}
+}) => {
+  const { env = {} }: CustomEnv = context as AppContext;
   const { getTheme } = await themeSessionResolver(request);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const pv = await (context.env.VIEWS as KVNamespace).get('total', 'text');
+  const url = new URL(request.url);
+  const slug = url.pathname;
+  const { lang = 'cn' } = params as Params;
+  // eslint-disable-next-line
+  const PV = new ViewsModel(env.VIEWS);
+  const views = await PV.visit(slug);
+
+  // const pv = await (context.env.VIEWS as KVNamespace).get('total', 'text');
   const data: LoaderData = {
-    // eslint-disable-next-line
-    pv,
+    lang,
+    slug,
+    views,
     requestInfo: {
       session: {
         theme: getTheme()
@@ -82,31 +103,11 @@ function App() {
       </head>
       <body>
         <div id='background' className='dark:dark-bg'></div>
-        <div
-          id='app'
-          className='relative pt-8 px-8 w-full mx-auto max-w-screen-2xl'>
-          <nav className='flex justify-between items-center w-full mx-auto'>
-            <div>
-              {/* <Logo /> */}
-              <a href='#'>#####</a>
-              <a href='#'>#####</a>
-              <a href='#'>#####</a>
-              <a href='#'>#####</a>
-            </div>
-          </nav>
-
-          <main id='skip' className='py-8'>
-            <div className='badge'>neutral</div>
-            <div className='badge badge-primary'>primary</div>
-            <div className='badge badge-secondary'>secondary</div>
-            <div className='badge badge-accent'>accent</div>
-            <div className='badge badge-ghost'>ghost</div>
-
-            <div className='card'>
-              <pre>{JSON.stringify(data, null, 2)}</pre>
-            </div>
-            <Outlet />
-          </main>
+        <div id='app' className='relative'>
+          <div>
+            <pre>{JSON.stringify(data, null, 2)}</pre>
+          </div>
+          <Outlet />
         </div>
         <DrawerMenu />
 
