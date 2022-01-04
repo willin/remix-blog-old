@@ -48,10 +48,10 @@ export type LoaderData = {
 export const loader: LoaderFunction = async ({ request, context }) => {
   const { getTheme } = await themeSessionResolver(request);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  // const pv = await (context.env.VIEWS as KVNamespace).get('total', 'text');
+  const pv = await (context.env.VIEWS as KVNamespace).get('total', 'text');
   const data: LoaderData = {
     // eslint-disable-next-line
-    env: context,
+    pv,
     requestInfo: {
       session: {
         theme: getTheme()
@@ -82,7 +82,9 @@ function App() {
       </head>
       <body>
         <div id='background' className='dark:dark-bg'></div>
-        <div id='app' className='relative pt-8 px-8 w-full max-w-5xl mx-auto'>
+        <div
+          id='app'
+          className='relative pt-8 px-8 w-full mx-auto max-w-screen-2xl'>
           <nav className='flex justify-between items-center w-full mx-auto'>
             <div>
               {/* <Logo /> */}
