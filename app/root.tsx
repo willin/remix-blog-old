@@ -1,11 +1,30 @@
-import { Links, LiveReload, Meta, Outlet, Scripts, json, useLoaderData, useCatch, ScrollRestoration } from 'remix';
-import type { LoaderFunction, LinksFunction, MetaFunction, MetaFunction } from 'remix';
-import { ThemeProvider, useTheme, PreventFlashOnWrongTheme, type Theme } from 'remix-themes';
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  json,
+  useLoaderData,
+  useCatch,
+  ScrollRestoration
+} from 'remix';
+import type {
+  LoaderFunction,
+  LinksFunction,
+  MetaFunction,
+  MetaFunction
+} from 'remix';
+import {
+  ThemeProvider,
+  useTheme,
+  PreventFlashOnWrongTheme,
+  type Theme
+} from 'remix-themes';
 import cls from 'classnames';
 import styles from './styles/global.css';
 import { themeSessionResolver } from './services/theme.server';
-import ThemeToggle from './components/navbar/theme-toggle';
-import LocaleToggle from './components/navbar/locale-toggle';
+import DrawerMenu from './components/navbar/drawer';
 // import Logo from './components/navbar/logo';
 
 export const links: LinksFunction = () => [
@@ -26,9 +45,13 @@ export type LoaderData = {
   };
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request, context }) => {
   const { getTheme } = await themeSessionResolver(request);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  const pv = await (context.env.VIEWS as KVNamespace).get('total', 'text');
   const data: LoaderData = {
+    // eslint-disable-next-line
+    pv,
     requestInfo: {
       session: {
         theme: getTheme()
@@ -44,17 +67,24 @@ function App() {
   const [theme = 'dark'] = useTheme();
 
   return (
-    <html lang='en' className={cls(theme)} data-theme={theme === 'light' ? 'retro' : 'cyberpunk'}>
+    <html
+      lang='en'
+      className={cls(theme)}
+      data-theme={theme === 'light' ? 'retro' : 'cyberpunk'}>
       <head>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width,initial-scale=1' />
         <Meta />
-        <PreventFlashOnWrongTheme ssrTheme={Boolean(data.requestInfo.session.theme)} />
+        <PreventFlashOnWrongTheme
+          ssrTheme={Boolean(data.requestInfo.session.theme)}
+        />
         <Links />
       </head>
       <body>
         <div id='background' className='dark:dark-bg'></div>
-        <div id='app' className='pt-8 px-8 w-full max-w-5xl mx-auto'>
+        <div
+          id='app'
+          className='relative pt-8 px-8 w-full mx-auto max-w-screen-2xl'>
           <nav className='flex justify-between items-center w-full mx-auto'>
             <div>
               {/* <Logo /> */}
@@ -62,10 +92,6 @@ function App() {
               <a href='#'>#####</a>
               <a href='#'>#####</a>
               <a href='#'>#####</a>
-            </div>
-            <div>
-              <ThemeToggle />
-              <LocaleToggle />
             </div>
           </nav>
 
@@ -76,9 +102,13 @@ function App() {
             <div className='badge badge-accent'>accent</div>
             <div className='badge badge-ghost'>ghost</div>
 
+            <div className='card'>
+              <pre>{JSON.stringify(data, null, 2)}</pre>
+            </div>
             <Outlet />
           </main>
         </div>
+        <DrawerMenu />
 
         <ScrollRestoration />
         <Scripts />
@@ -92,7 +122,9 @@ export default function AppWithProviders() {
   const data = useLoaderData<LoaderData>();
 
   return (
-    <ThemeProvider specifiedTheme={data.requestInfo.session.theme} themeAction='action/set-theme'>
+    <ThemeProvider
+      specifiedTheme={data.requestInfo.session.theme}
+      themeAction='action/set-theme'>
       <App />
     </ThemeProvider>
   );
