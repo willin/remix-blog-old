@@ -1,13 +1,11 @@
 {
   "private": true,
   "name": "willin.wang",
-  "description": "",
-  "license": "Apache-2.0",
+  "description": "R3mix of Willin.Wang",
+  "license": "GPL-3.0",
   "scripts": {
     "build": "npm run build:css && cross-env NODE_ENV=production remix build",
     "dev": "cross-env NODE_ENV=development run-p dev:*",
-    "local": "cross-env NODE_ENV=local run-p dev:css local:remix",
-    "local:remix": "remix dev",
     "build:css": "postcss styles/**/*.css --base styles --dir app/styles",
     "build:css:prod": "npm run build:css -- --env production",
     "postinstall": "remix setup cloudflare-pages",
@@ -15,6 +13,7 @@
     "dev:remix": "remix watch",
     "dev:wrangler": "wrangler pages dev ./public --watch ./build",
     "start": "npm run dev:wrangler",
+    "lint": "eslint --fix --ext .ts,.tsx --ignore-path .gitignore .",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -53,7 +52,7 @@
     "prettier": "^2.5.1",
     "tailwindcss": "^3.0.8",
     "typescript": "^4.5.4",
-    "wrangler": "alpha"
+    "wrangler": "pages"
   },
   "engines": {
     "node": ">=14"

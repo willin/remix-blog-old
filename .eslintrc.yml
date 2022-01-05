@@ -11,5 +11,6 @@ settings:
   import/resolver:
     typescript: {}
 rules:
+  no-shadow: 0
   import/named: 0
   '@typescript-eslint/explicit-function-return-type': 0
