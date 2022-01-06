@@ -39,6 +39,11 @@ export class Github {
     });
   }
 
+  /**
+   *
+   * @param path the full path to list
+   * @returns a promise that resolves to a file ListItem of the files/directories in the given directory (not recursive)
+   */
   async downloadDirList(path: string) {
     const resp = await this.octokit.repos.getContent({
       ...repo,
@@ -53,5 +58,44 @@ export class Github {
     }
 
     return data;
+  }
+
+  /**
+   *
+   * @param sha the hash for the file (retrieved via `downloadDirList`)
+   * @returns a promise that resolves to a string of the contents of the file
+   */
+  async downloadFileBySha(sha: string) {
+    const { data } = await this.octokit.request(
+      'GET /repos/{owner}/{repo}/git/blobs/{file_sha}',
+      {
+        ...repo,
+        file_sha: sha
+      }
+    );
+    //                                lol
+    const encoding = data.encoding as Parameters<typeof Buffer.from>['1'];
+    return Buffer.from(data.content, encoding).toString();
+  }
+
+  async downloadFile(path: string) {
+    const { data } = (await this.octokit.request(
+      'GET /repos/{owner}/{repo}/contents/{path}',
+      {
+        ...repo,
+        path
+      }
+    )) as { data: { content?: string; encoding?: string } };
+
+    if (!data.content || !data.encoding) {
+      console.error(data);
+      throw new Error(
+        `Tried to get ${path} but got back something that was unexpected. It doesn't have a content or encoding property`
+      );
+    }
+
+    //                                lol
+    const encoding = data.encoding as Parameters<typeof Buffer.from>['1'];
+    return Buffer.from(data.content, encoding).toString();
   }
 }

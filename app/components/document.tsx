@@ -1,105 +1,47 @@
+import clsx from 'classnames';
 import {
-  Links,
-  LiveReload,
+  useMatches,
   Meta,
-  Outlet,
+  Links,
+  ScrollRestoration,
   Scripts,
-  json,
-  useLoaderData,
-  useCatch,
-  ScrollRestoration
+  LiveReload
 } from 'remix';
-import type { LoaderFunction, MetaFunction, MetaFunction } from 'remix';
 import {
   ThemeProvider,
-  useTheme,
   PreventFlashOnWrongTheme,
-  type Theme
+  useTheme
 } from 'remix-themes';
-import cls from 'classnames';
-import { themeSessionResolver } from '~/services/theme.server';
-import DrawerMenu from '~/components/navbar/drawer';
-import { ViewsModel } from '~/services/views.server';
-// import Logo from './components/navbar/logo';
+import Drawer from './navbar/drawer';
 
-export const meta: MetaFunction = () => ({
-  title: 'New Remix App',
-  description: 'A new remix app'
-});
+function App({ children }: { children: ReactNode }) {
+  const matches = useMatches();
+  const [{ params, data }] = matches;
+  const { lang } = params;
+  const { theme: sessionTheme }: { theme: string } = data;
 
-export type LoaderData = {
-  requestInfo: {
-    session: {
-      theme: Theme | null;
-    };
-  };
-};
-
-export type CustomEnv = {
-  VIEWS: KVNamespace;
-};
-
-export type AppContext = {
-  env: CustomEnv;
-};
-
-export const loader: LoaderFunction = async ({
-  params,
-  request,
-  context = {}
-}) => {
-  const { env = {} }: CustomEnv = context as AppContext;
-  const { getTheme } = await themeSessionResolver(request);
-  const url = new URL(request.url);
-  const slug = url.pathname;
-  const { lang = 'cn' } = params as Params;
-  // eslint-disable-next-line
-  const PV = new ViewsModel(env.VIEWS);
-  const views = await PV.visit(slug);
-
-  // const pv = await (context.env.VIEWS as KVNamespace).get('total', 'text');
-  const data: LoaderData = {
-    lang,
-    slug,
-    views,
-    requestInfo: {
-      session: {
-        theme: getTheme()
-      }
-    }
-  };
-
-  return json(data);
-};
-
-function App() {
-  const data = useLoaderData<LoaderData>();
   const [theme = 'dark'] = useTheme();
 
   return (
     <html
-      lang='en'
-      className={cls(theme)}
+      lang={lang}
+      className={clsx(theme)}
       data-theme={theme === 'light' ? 'retro' : 'cyberpunk'}>
       <head>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width,initial-scale=1' />
         <Meta />
-        <PreventFlashOnWrongTheme
-          ssrTheme={Boolean(data.requestInfo.session.theme)}
-        />
+        <PreventFlashOnWrongTheme ssrTheme={Boolean(sessionTheme)} />
         <Links />
       </head>
       <body>
         <div id='background' className='dark:dark-bg'></div>
-        <div id='app' className='relative'>
-          <div>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-          </div>
-          <Outlet />
+        <div
+          id='app'
+          className='relative pt-8 px-8 w-full mx-auto max-w-screen-2xl'>
+          {children}
         </div>
-        <DrawerMenu />
-
+        <Drawer />
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'development' && <LiveReload />}
@@ -108,57 +50,13 @@ function App() {
   );
 }
 
-export default function AppWithProviders() {
-  const data = useLoaderData<LoaderData>();
-
+export default function Document({ children }: { children: ReactNode }) {
+  const matches = useMatches();
+  const [{ data }] = matches;
+  const { theme }: { theme: string } = data;
   return (
-    <ThemeProvider
-      specifiedTheme={data.requestInfo.session.theme}
-      themeAction='action/set-theme'>
-      <App />
+    <ThemeProvider specifiedTheme={theme} themeAction='action/set-theme'>
+      <App>{children}</App>
     </ThemeProvider>
   );
-}
-
-// best effort, last ditch error boundary. This should only catch root errors
-// all other errors should be caught by the index route which will include
-// the footer and stuff, which is much better.
-export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
-  return (
-    <html lang='en'>
-      <head>
-        <title>Oh no...</title>
-        <Meta />
-        <Links />
-      </head>
-      <body className='bg-primary'>
-        {/* <ServerError error={error} /> */}
-        500
-      </body>
-      <Scripts />
-    </html>
-  );
-}
-
-export function CatchBoundary() {
-  const caught = useCatch();
-  console.error('CatchBoundary', caught);
-  if (caught.status === 404) {
-    return (
-      <html lang='en'>
-        <head>
-          <title>Oh no...</title>
-          <Meta />
-          <Links />
-        </head>
-        <body className='bg-primary'>
-          {/*  */}
-          404
-        </body>
-        <Scripts />
-      </html>
-    );
-  }
-  throw new Error(`Unhandled error: ${caught.status}`);
 }
