@@ -1,17 +1,23 @@
 import { json, useLoaderData, Link, useMatches, useCatch } from 'remix';
 import type { LoaderFunction, MetaFunction } from 'remix';
+import { useTranslation } from 'react-i18next';
+import { useRemixI18Next } from 'remix-i18next';
 import { supportedLngs } from '~/i18n.config';
 import Document from '~/components/document';
+import { i18n } from '~/services/i18n.server';
 
-export const loader: LoaderFunction = ({ params }) => {
+export const loader: LoaderFunction = async ({ params }) => {
   const { lang } = params;
-  console.log(lang);
   if (!supportedLngs.includes(lang)) {
     throw new Response('Not Found', {
       status: 404
     });
   }
-  return json({ page: 1 });
+
+  return json({
+    locale: lang,
+    i18n: await i18n.getTranslations(lang, ['site'])
+  });
 };
 
 export const meta: MetaFunction = ({ data }) => ({
@@ -22,10 +28,13 @@ export const meta: MetaFunction = ({ data }) => ({
 export default function HomePage() {
   const matches = useMatches();
   const data = useLoaderData<Record<string, unknown>>();
+  const { locale } = useLoaderData<{ locale: string }>();
+  useRemixI18Next(locale);
 
+  const { t } = useTranslation('site');
   return (
     <Document>
-      <h1>test</h1>
+      <h1>{t('description')}</h1>
       <Link to='/lang'>Home Lang</Link>
       <main className='prose max-w-none'>
         <pre>{JSON.stringify(matches)}</pre>
