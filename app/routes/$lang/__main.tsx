@@ -1,6 +1,6 @@
 import { json, useLoaderData, Link, useMatches, useCatch } from 'remix';
 import type { LoaderFunction, MetaFunction } from 'remix';
-import { supportedLngs } from '~/utils/i18next';
+import { supportedLngs } from '~/i18n.config';
 import Document from '~/components/document';
 
 export const loader: LoaderFunction = ({ params }) => {

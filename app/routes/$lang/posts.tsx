@@ -15,7 +15,7 @@ export default function PostsPage() {
     <div>
       <h2>demo</h2>
       {data.posts.map((post) => (
-        <div key={post.id}>{post.title}</div>
+        <div key={post.title}>{post.title}</div>
       ))}
     </div>
   );

@@ -1,5 +1,5 @@
 import { Backend, RemixI18Next } from 'remix-i18next';
-import { fallbackLng, supportedLngs } from '~/utils/i18next';
+import { fallbackLng, supportedLngs } from '~/i18n.config';
 
 class InMemoryBackend implements Backend {
   // eslint-disable-next-line no-useless-constructor
