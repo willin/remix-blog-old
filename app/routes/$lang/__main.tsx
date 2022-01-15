@@ -5,6 +5,7 @@ import Document from '~/components/document';
 
 export const loader: LoaderFunction = ({ params }) => {
   const { lang } = params;
+  console.log(lang);
   if (!supportedLngs.includes(lang)) {
     throw new Response('Not Found', {
       status: 404

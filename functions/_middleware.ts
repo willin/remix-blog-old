@@ -6,7 +6,7 @@ export const onRequest: PagesFunction<{
   const { env } = context;
   const timestamp = Date.now();
   const res = await context.next().catch((e) => {
-    result = {
+    const result = {
       status: 0,
       error: env.NODE_ENV === 'production' ? 'Server Error!' : (e as string)
     };

@@ -18,7 +18,7 @@ class InMemoryBackend implements Backend {
     console.log(`getTranslations(${namespace}, ${locale})`);
     console.log(this.data);
     console.log(this.data.zh);
-    return this.data[locale][namespace];
+    return this.data[locale][namespace] || this.data[fallbackLng][namespace];
   }
 }
 
