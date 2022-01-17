@@ -1,0 +1,78 @@
+import { json, useCatch, useLoaderData, Outlet } from 'remix';
+import type {
+  LinksFunction,
+  MetaFunction,
+  LoaderFunction,
+  ShouldReloadFunction
+} from 'remix';
+import tailwindStyles from '~/styles/global.css';
+import { Document } from '~/layout/document';
+import { sessionStore } from '~/services/session.server';
+
+export const links: LinksFunction = () => [
+  { rel: 'stylesheet', href: tailwindStyles },
+  { rel: 'shortcut icon', type: 'image/png', href: '/favicon.png' }
+];
+
+export const meta: MetaFunction = () => ({
+  title: 'Willin Wang'
+});
+
+export type LoaderData = {
+  theme: string;
+};
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await sessionStore.getSession(request.headers.get('Cookie'));
+  const theme = (session.get('theme') as string) || 'dark';
+
+  return json({ theme });
+};
+
+// https://remix.run/docs/en/v1/api/conventions#unstable_shouldreload
+export const unstable_shouldReload: ShouldReloadFunction = ({ submission }) =>
+  !!submission && submission.action === '/actions/set-theme';
+
+export default function App() {
+  const { theme } = useLoaderData<LoaderData>();
+
+  return (
+    <Document theme={theme}>
+      <Outlet />
+    </Document>
+  );
+}
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  switch (caught.status) {
+    case 401:
+    case 404:
+      return (
+        <Document title={`${caught.status} - ${caught.statusText}`}>
+          <h1>
+            {caught.status} {caught.statusText}
+          </h1>
+        </Document>
+      );
+
+    default:
+      throw new Error(
+        `Unexpected caught response with status: ${caught.status}`
+      );
+  }
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+  return (
+    <Document title='Uh-oh!'>
+      <h1>App Error</h1>
+      <pre>{error.message}</pre>
+      <p>
+        Replace this UI with what you want users to see when your app throws
+        uncaught errors.
+      </p>
+    </Document>
+  );
+}

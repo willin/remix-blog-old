@@ -1,0 +1,17 @@
+root: true
+extends:
+  - '@willin'
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
+plugins:
+  - import
+parserOptions:
+  project: ./tsconfig.json
+  tsconfigRootDir: ./
+settings:
+  import/resolver:
+    typescript: {}
+rules:
+  camelcase: 0
+  no-shadow: 0
+  import/named: 0
+  '@typescript-eslint/explicit-function-return-type': 0
