@@ -52,11 +52,13 @@ export function CatchBoundary() {
     case 401:
     case 404:
       return (
-        <Document title={`${caught.status} - ${caught.statusText}`}>
-          <h1>
-            {caught.status} {caught.statusText}
-          </h1>
-        </Document>
+        <ThemeProvider themeAction='/action/set-theme'>
+          <Document>
+            <h1>
+              {caught.status} {caught.statusText}
+            </h1>
+          </Document>
+        </ThemeProvider>
       );
 
     default:
@@ -69,13 +71,15 @@ export function CatchBoundary() {
 export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error);
   return (
-    <Document title='Uh-oh!'>
-      <h1>App Error</h1>
-      <pre>{error.message}</pre>
-      <p>
-        Replace this UI with what you want users to see when your app throws
-        uncaught errors.
-      </p>
-    </Document>
+    <ThemeProvider themeAction='/action/set-theme'>
+      <Document title='Uh-oh!'>
+        <h1>App Error</h1>
+        <pre>{error.message}</pre>
+        <p>
+          Replace this UI with what you want users to see when your app throws
+          uncaught errors.
+        </p>
+      </Document>
+    </ThemeProvider>
   );
 }
