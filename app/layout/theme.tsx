@@ -20,7 +20,7 @@ const prefersLightMQ = '(prefers-color-scheme: light)';
 
 export function ThemeProvider({
   children,
-  themeAction,
+  themeAction = '/api/set-theme',
   specifiedTheme
 }: {
   children: ReactNode;

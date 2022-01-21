@@ -32,13 +32,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 // https://remix.run/docs/en/v1/api/conventions#unstable_shouldreload
 export const unstable_shouldReload: ShouldReloadFunction = ({ submission }) =>
-  !!submission && submission.action === '/actions/set-theme';
+  !!submission && submission.action === '/api/set-theme';
 
 export default function App() {
   const { theme } = useLoaderData<LoaderData>();
 
   return (
-    <ThemeProvider specifiedTheme={theme} themeAction='/action/set-theme'>
+    <ThemeProvider specifiedTheme={theme}>
       <Document>
         <Outlet />
       </Document>
@@ -52,7 +52,7 @@ export function CatchBoundary() {
     case 401:
     case 404:
       return (
-        <ThemeProvider themeAction='/action/set-theme'>
+        <ThemeProvider>
           <Document>
             <h1>
               {caught.status} {caught.statusText}
@@ -71,7 +71,7 @@ export function CatchBoundary() {
 export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error);
   return (
-    <ThemeProvider themeAction='/action/set-theme'>
+    <ThemeProvider>
       <Document title='Uh-oh!'>
         <h1>App Error</h1>
         <pre>{error.message}</pre>

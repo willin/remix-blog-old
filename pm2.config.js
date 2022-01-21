@@ -14,7 +14,8 @@ module.exports = {
     },
     {
       name: 'Cloudflare Wrangler',
-      script: 'wrangler pages dev ./public --watch ./build --kv VIEWS',
+      script:
+        'wrangler pages dev ./public --watch ./build --kv VIEWS --kv CONTENTS',
       autorestart: false,
       ignore_watch: ['.']
     }
