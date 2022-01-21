@@ -8,6 +8,7 @@ import type {
 import tailwindStyles from '~/styles/global.css';
 import { Document } from '~/layout/document';
 import { sessionStore } from '~/services/session.server';
+import { ThemeProvider } from '~/layout/theme';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: tailwindStyles },
@@ -37,9 +38,11 @@ export default function App() {
   const { theme } = useLoaderData<LoaderData>();
 
   return (
-    <Document theme={theme}>
-      <Outlet />
-    </Document>
+    <ThemeProvider specifiedTheme={theme} themeAction='/action/set-theme'>
+      <Document>
+        <Outlet />
+      </Document>
+    </ThemeProvider>
   );
 }
 export function CatchBoundary() {

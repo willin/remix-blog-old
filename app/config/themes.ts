@@ -1,0 +1,61 @@
+export const THEMES = [
+  'light',
+  'dark',
+  'cupcake',
+  'bumblebee',
+  'Emerald',
+  'Corporate',
+  'synthwave',
+  'retro',
+  'cyberpunk',
+  'valentine',
+  'halloween',
+  'garden',
+  'forest',
+  'aqua',
+  'lofi',
+  'pastel',
+  'fantasy',
+  'Wireframe',
+  'black',
+  'luxury',
+  'dracula',
+  'CMYK'
+];
+
+export const THEME_ICONS = [
+  '🌝',
+  '🌚',
+  '🧁',
+  '🐝',
+  '✳️',
+  '🏢',
+  '🌃',
+  '👴',
+  '🤖',
+  '🌸',
+  '🎃',
+  '🌷',
+  '🌲',
+  '🐟',
+  '👓',
+  '🖍',
+  '🧚‍♀️',
+  '📝',
+  '🏴',
+  '💎',
+  '🧛‍♂️',
+  '🖨'
+];
+
+export const THEMES_DARK = [
+  'dark',
+  'synthwave',
+  'cyberpunk',
+  'halloween',
+  'forest',
+  'aqua',
+  'black',
+  'luxury',
+  'dracula'
+];

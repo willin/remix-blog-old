@@ -64,16 +64,13 @@
 
 @layer components {
   #background {
-    @apply fixed inset-0 saturate-150;
+    @apply fixed inset-0 saturate-150 z-[-1];
     background: url('/images/bg.jpg') no-repeat center center fixed;
     background-size: cover;
     transition: all 0.25s ease-in-out;
     transform-style: preserve-3d;
   }
-}
-
-@layer utilities {
-  .dark-bg {
+  #background.dark {
     @apply brightness-50 saturate-100;
     transform: rotate(-3deg) scale(1.2);
     /* scaleX(-1); */
