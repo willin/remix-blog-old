@@ -23,6 +23,11 @@ export const action: ActionFunction = async ({
         await CONTENTS.put(data.slug, JSON.stringify(data));
         break;
       }
+      case 'DELETE': {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        await CONTENTS.delete(data.slug);
+        break;
+      }
       default: {
         return new Response(`Unsupported ${request.method}`, {
           status: 400
@@ -32,7 +37,12 @@ export const action: ActionFunction = async ({
     return json({ success: true });
   } catch (err) {
     const e: Error = err;
-    return json({ message: e.message, stack: e.stack });
+    return json(
+      { message: e.message, stack: e.stack },
+      {
+        status: 500
+      }
+    );
   }
 };
 

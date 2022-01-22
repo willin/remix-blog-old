@@ -6,7 +6,7 @@ export function ThemeToggle() {
   const onThemeClicked = (theme: string) => {
     setTheme(theme);
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    fetch('/action/set-theme', {
+    fetch('/api/theme', {
       method: 'PUT',
       body: JSON.stringify({ theme })
     });

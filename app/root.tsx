@@ -34,7 +34,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 // https://remix.run/docs/en/v1/api/conventions#unstable_shouldreload
 export const unstable_shouldReload: ShouldReloadFunction = ({ submission }) =>
-  !!submission && submission.action === '/api/set-theme';
+  !!submission && submission.action === '/api/theme';
 
 export default function App() {
   const { theme } = useLoaderData<LoaderData>();
