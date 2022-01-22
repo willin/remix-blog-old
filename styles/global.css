@@ -10,7 +10,9 @@
   a,
   a *,
   button,
-  button * {
+  button *,
+  .btn,
+  .btn * {
     cursor: url('/pointer.cur'), pointer !important;
   }
 

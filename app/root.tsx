@@ -5,10 +5,12 @@ import type {
   LoaderFunction,
   ShouldReloadFunction
 } from 'remix';
-import tailwindStyles from '~/styles/global.css';
 import { Document } from '~/layout/document';
 import { sessionStore } from '~/services/session.server';
 import { ThemeProvider } from '~/layout/theme';
+import { ErrorLayout } from '~/layout/error';
+// eslint-disable-next-line import/no-unresolved
+import tailwindStyles from '~/styles/global.css';
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: tailwindStyles },
@@ -53,10 +55,12 @@ export function CatchBoundary() {
     case 404:
       return (
         <ThemeProvider>
-          <Document>
-            <h1>
-              {caught.status} {caught.statusText}
-            </h1>
+          <Document title='404'>
+            <ErrorLayout>
+              <h1>
+                {caught.status} {caught.statusText}
+              </h1>
+            </ErrorLayout>
           </Document>
         </ThemeProvider>
       );
@@ -73,12 +77,14 @@ export function ErrorBoundary({ error }: { error: Error }) {
   return (
     <ThemeProvider>
       <Document title='Uh-oh!'>
-        <h1>App Error</h1>
-        <pre>{error.message}</pre>
-        <p>
-          Replace this UI with what you want users to see when your app throws
-          uncaught errors.
-        </p>
+        <ErrorLayout>
+          <h1>App Error</h1>
+          <pre>{error.message}</pre>
+          <p>
+            Replace this UI with what you want users to see when your app throws
+            uncaught errors.
+          </p>
+        </ErrorLayout>
       </Document>
     </ThemeProvider>
   );

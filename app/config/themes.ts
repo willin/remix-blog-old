@@ -46,7 +46,10 @@ export const THEME_ICONS = [
   '💎',
   '🧛‍♂️',
   '🖨'
-];
+].reduce((acc, curr, index) => {
+  acc[THEMES[index]] = curr;
+  return acc;
+}, {});
 
 export const THEMES_DARK = [
   'dark',
@@ -59,3 +62,6 @@ export const THEMES_DARK = [
   'luxury',
   'dracula'
 ];
+
+const darkThemes = new Set(THEMES_DARK);
+export const THEMES_LIGHT = THEMES.filter((t) => !darkThemes.has(t));
