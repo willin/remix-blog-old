@@ -12,3 +12,24 @@ export type LoaderFunctionArgs = {
     any
   >;
 };
+
+export type WPost = {
+  type: string;
+  slug: string;
+  locale: string | boolean;
+  deleted: boolean;
+  frontmatter: {
+    title: string;
+    date: string;
+    tags?: string[];
+    readingTime?: {
+      text: string;
+      minutes: number;
+      time: number;
+      words: number;
+    };
+  };
+  hash: string;
+  html: string;
+  code?: string;
+};

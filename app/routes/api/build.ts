@@ -1,15 +1,7 @@
 import { json } from 'remix';
 import type { LoaderFunction, ActionFunction } from 'remix';
-import type { LoaderFunctionArgs } from '~/types';
+import type { LoaderFunctionArgs, WPost } from '~/types';
 import { locales } from '~/i18n';
-
-type BuildInfo = {
-  type: string;
-  slug: string;
-  locale: string | boolean;
-  deleted: boolean;
-  [key: string]: any;
-};
 
 export const action: ActionFunction = async ({
   request,
@@ -21,8 +13,7 @@ export const action: ActionFunction = async ({
     return new Response(`Unauthorized ${key}`, { status: 401 });
   }
   try {
-    const data: BuildInfo = await request.json();
-    console.log(data);
+    const data: WPost = await request.json();
 
     switch (request.method) {
       case 'PUT': {
