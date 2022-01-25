@@ -1,0 +1,12 @@
+{
+  "name": "scripts",
+  "version": "0.0.0",
+  "private": true,
+  "author": "Willin Wang <willin@willin.org> (https://willin.wang/)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "mdx-bundler": "^8.0.1",
+    "reading-time": "^1.5.0"
+  }
+}
