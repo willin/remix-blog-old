@@ -61,7 +61,6 @@ async function main() {
     } else if (locale) {
       // 生成单语言
       const result = await compileFile(file);
-      console.log(result);
       const {
         data: { success }
       } = await axios.post(`${API_URL}/build`, {
