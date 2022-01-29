@@ -2194,20 +2194,19 @@ eslint-config-airbnb-base@*:
     object.entries "^1.1.5"
     semver "^6.3.0"
 
-eslint-config-prettier@*, eslint-config-prettier@^8.3.0:
+eslint-config-prettier@*:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz#f7471b20b6fe8a9a9254cc684454202886a2dd7a"
   integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
 
-eslint-config-willin@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/eslint-config-willin/-/eslint-config-willin-1.0.7.tgz#0fc5b0b1ece6eb9a6098a6617e146a3a024a1eab"
-  integrity sha512-+QECXMVWnjKWfkRa8vznQvzGf7QNpcONBz5Fagp5boUPZnQb/g5BqArTvaTNlzZiJ8Ae7lh50IS1UJhFayLD7Q==
+eslint-config-willin@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/eslint-config-willin/-/eslint-config-willin-1.0.8.tgz#6aab4929d6658b01a3321c30e8501e82040ec6a0"
+  integrity sha512-lkJNSF3hc9PjMrhuLWD5oAFT2+4joqaaPwH9DsGLWDjGH3eL7OrH2J9Cv5Dz0+C5HFBhKMpx5Y22DCLVGGWQCQ==
   dependencies:
     eslint-config-airbnb-base "*"
-    eslint-config-prettier "^8.3.0"
+    eslint-config-prettier "*"
     eslint-plugin-import "*"
-    v0 "*"
 
 eslint-import-resolver-node@^0.3.6:
   version "0.3.6"
@@ -6018,11 +6017,6 @@ uvu@^0.5.0:
     diff "^5.0.0"
     kleur "^4.0.3"
     sade "^1.7.3"
-
-v0@*:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/v0/-/v0-1.1.1.tgz#e2f8a8d4f19c4f430acdb4b46ba827362cae2cd4"
-  integrity sha512-pI74QB4o2aClvXTd3GhEpVJB8f+9tp8sPXe12gyPRcHMRs4eUsVxt4oeTy5rFlBNMyJJLIBQ2seGanfYz9fisA==
 
 v8-compile-cache@^2.0.3:
   version "2.3.0"
