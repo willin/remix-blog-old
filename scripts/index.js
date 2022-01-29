@@ -4,6 +4,8 @@ const { getCommit } = require('./commit');
 const { compileFile } = require('./mdx');
 
 const [currentCommitSha = process.env.GITHUB_SHA] = process.argv.slice(2);
+console.log(process.argv.slice(2));
+console.log(process.env.GITHUB_SHA);
 const API_URL = process.env.API_URL || 'http://127.0.0.1:8788/api';
 axios.defaults.headers.common.Authorization = `Bearer ${
   process.env.API_KEY || 'undefined'
@@ -29,7 +31,6 @@ async function main() {
   } = await axios.get(`${API_URL}/locale`);
   const compareCommitSha = commit.sha;
   const files = await getChangedFiles(currentCommitSha, compareCommitSha);
-
   // 避免重复任务
   // Avoid duplicate tasks
   const tasks = {};

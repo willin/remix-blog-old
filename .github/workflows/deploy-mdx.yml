@@ -35,7 +35,7 @@ jobs:
           yarn
       - name: Build
         run: |-
-          yarn start
+          yarn start ${{ github.sha }}
         env:
           API_KEY: ${{ github.ref_name == 'main' && secrets.API_KEY  || secrets.API_KEY_PREVIEW }}
           API_URL: ${{ github.ref_name == 'main' && secrets.API_URL  || secrets.API_URL_PREVIEW }}
