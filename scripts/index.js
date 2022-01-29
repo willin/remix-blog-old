@@ -6,7 +6,7 @@ const { compileFile } = require('./mdx');
 const [currentCommitSha = process.env.GITHUB_SHA] = process.argv.slice(2);
 const API_URL = process.env.API_URL || 'http://127.0.0.1:8788/api';
 axios.defaults.headers.common.Authorization = `Bearer ${
-  process.env.API_TOKEN || 'undefined'
+  process.env.API_KEY || 'undefined'
 }`;
 
 const createBatchTasks = (file, tempLocales, deleted) => {

@@ -13,7 +13,7 @@ export function Navbar() {
       <div className='hidden px-2 mx-2 navbar-center lg:flex'>
         <div className='flex items-stretch'>
           <RouteLink to='/'>Home</RouteLink>
-          <RouteLink to='/blog'>Articles</RouteLink>
+          <RouteLink to='/posts'>Posts</RouteLink>
           <RouteLink to='/projects'>Projects</RouteLink>
           <RouteLink to='/about'>About</RouteLink>
         </div>

@@ -3,7 +3,7 @@ import type { MetaFunction, LoaderFunction } from 'remix';
 import { useMdxComponent } from '~/components/mdx';
 import { LoaderFunctionArgs, WPost } from '~/types';
 import { siteTitle } from '~/config';
-import { PostMeta, PostTags } from '~/components/posts/post-meta';
+import { PostMeta } from '~/components/posts/post-meta';
 
 export const meta: MetaFunction = ({ data }: { data: WPost }) => {
   let title = siteTitle;
@@ -22,12 +22,12 @@ export const loader: LoaderFunction = async ({
   params,
   context
 }: LoaderFunctionArgs) => {
-  const { slug } = params;
+  const { pages: slug } = params;
   if (!slug) {
     throw new Response('Not Found', { status: 404 });
   }
   const locale = 'zh';
-  const type = 'posts';
+  const type = 'pages';
   const { CONTENTS } = context.env;
 
   const data = await CONTENTS.get([locale, type, slug].join(':'), 'json');
@@ -47,20 +47,19 @@ export default function Post() {
     Component = useMdxComponent(code);
   }
   return (
-    <div className='card glass prose max-w-none p-6 mb-6'>
-      <h1 className='mb-2'>{frontmatter.title}</h1>
-      <PostMeta post={post} />
-      <div className='flex my-2'>
-        <div>本文标签：</div>
-        <PostTags post={post} />
+    <main className='mx-8'>
+      <div className='card glass prose max-w-none p-6 mb-6'>
+        <h1 className='mb-2'>{frontmatter.title}</h1>
+        <PostMeta post={post} />
+
+        {Component ? (
+          <div>
+            <Component />
+          </div>
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: html }} />
+        )}
       </div>
-      {Component ? (
-        <div>
-          <Component />
-        </div>
-      ) : (
-        <div dangerouslySetInnerHTML={{ __html: html }} />
-      )}
-    </div>
+    </main>
   );
 }

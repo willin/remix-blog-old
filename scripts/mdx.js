@@ -2,20 +2,20 @@ const path = require('path');
 const fsp = require('fs/promises');
 const crypto = require('crypto');
 const { bundleMDX } = require('mdx-bundler');
-const { getMDXComponent } = require('mdx-bundler/client');
-const { Link } = require('@remix-run/react');
+const { getMDXComponent: getComponent } = require('mdx-bundler/client');
 const readingTime = require('reading-time');
 const { createElement } = require('react');
 const { renderToString } = require('react-dom/server');
+const { remarkMdxImages } = require('remark-mdx-images');
 
 const CONTENT = path.join(__dirname, '../content');
 
 const mdxComponents = {
-  a: Link
+  // Custom Components
 };
 
 function getMdxComponent(code) {
-  const Component = getMDXComponent(code);
+  const Component = getComponent(code);
   function WMdxComponent({ components, ...rest }) {
     return Component({
       components: { ...mdxComponents, ...components },
@@ -45,7 +45,7 @@ async function compileFile(file) {
 
   const { frontmatter, code } = await bundleMDX({
     source: fileContent,
-    files,
+    ...(Object.keys(files).length > 0 ? { files } : {}),
     xdmOptions(options) {
       // options.remarkPlugins = [
       //   ...(options.remarkPlugins ?? []),
@@ -55,13 +55,28 @@ async function compileFile(file) {
       //   ...(options.rehypePlugins ?? []),
       //   rehypeHighlight
       // ];
+      // eslint-disable-next-line no-param-reassign
+      options.remarkPlugins = [
+        ...(options.remarkPlugins ?? []),
+        remarkMdxImages
+      ];
+
       return options;
     }
+    // esbuildOptions: (options) => {
+    //   // eslint-disable-next-line no-param-reassign
+    //   // options.loader = {
+    //   //   ...options.loader,
+    //   //   '.png': 'dataurl'
+    //   // };
+
+    //   return options;
+    // }
   });
 
   const Component = getMdxComponent(code);
   const html = renderToString(createElement(Component));
-  const hasComponents = Object.keys(files).length > 0;
+  const hasComponents = true || Object.keys(files).length > 0;
 
   const hash = crypto
     .createHash('sha256')

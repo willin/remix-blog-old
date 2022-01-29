@@ -1,10 +1,7 @@
 import { useMemo } from 'react';
-import { Link } from 'remix';
 import * as mdxBundler from 'mdx-bundler/client';
 
-const mdxComponents = {
-  a: Link
-};
+const mdxComponents = {};
 /**
  * This should be rendered within a useMemo
  * @param code the code to get the component from
