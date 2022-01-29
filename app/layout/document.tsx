@@ -1,7 +1,8 @@
 import { Meta, Links, ScrollRestoration, Scripts, LiveReload } from 'remix';
-import type { ReactNode } from 'react';
-import { Header } from '~/components/header';
+import { ReactNode } from 'react';
 import clsx from 'classnames';
+import { Header } from '~/components/header';
+import { Footer } from '~/components/footer';
 import { THEMES_DARK } from '~/config';
 import { useTheme } from './theme';
 
@@ -28,8 +29,11 @@ export function Document({
         <div
           id='background'
           className={clsx({ dark: THEMES_DARK.includes(theme) })}></div>
-        <Header></Header>
-        {children}
+        <Header />
+        <div className='pt-20' style={{ minHeight: 'calc(100vh - 75px)' }}>
+          {children}
+        </div>
+        <Footer />
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'development' && <LiveReload />}

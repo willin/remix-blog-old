@@ -4,5 +4,3 @@ export const i18n = {
     title: 'Willin 王初瘦'
   }
 };
-
-export default i18n;

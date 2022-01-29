@@ -1,6 +1,7 @@
-import { json, ActionFunction, json } from 'remix';
+import { json } from 'remix';
 import type { LoaderFunction, ActionFunction } from 'remix';
-import type { LoaderFunctionArgs } from '~/types';
+import type { LoaderFunctionArgs, WPost } from '~/types';
+import { locales } from '~/i18n';
 
 export const action: ActionFunction = async ({
   request,
@@ -12,15 +13,32 @@ export const action: ActionFunction = async ({
     return new Response(`Unauthorized ${key}`, { status: 401 });
   }
   try {
-    const data = await request.json();
+    const data: WPost = await request.json();
+
     switch (request.method) {
       case 'PUT': {
         await CONTENTS.put('$$content-sha', JSON.stringify(data));
         break;
       }
       case 'POST': {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        await CONTENTS.put(data.slug, JSON.stringify(data));
+        const { locale, slug, type } = data;
+        await CONTENTS.put(
+          [locale, type, slug].join(':'),
+          JSON.stringify(data)
+        );
+        break;
+      }
+      case 'DELETE': {
+        const { locale, slug, type } = data;
+        if (locale) {
+          await CONTENTS.delete([locale, type, slug].join(':'));
+        } else {
+          await Promise.all(
+            locales.map((locale) =>
+              CONTENTS.delete([locale, type, slug].join(':'))
+            )
+          );
+        }
         break;
       }
       default: {
@@ -32,7 +50,12 @@ export const action: ActionFunction = async ({
     return json({ success: true });
   } catch (err) {
     const e: Error = err;
-    return json({ message: e.message, stack: e.stack });
+    return json(
+      { message: e.message, stack: e.stack },
+      {
+        status: 500
+      }
+    );
   }
 };
 

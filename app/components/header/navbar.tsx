@@ -12,20 +12,10 @@ export function Navbar() {
       </div>
       <div className='hidden px-2 mx-2 navbar-center lg:flex'>
         <div className='flex items-stretch'>
-          <RouteLink to='/' className='btn btn-ghost btn-sm rounded-btn'>
-            Home
-          </RouteLink>
-          <RouteLink to='/blog' className='btn btn-ghost btn-sm rounded-btn'>
-            Articles
-          </RouteLink>
-          <RouteLink
-            to='/projects'
-            className='btn btn-ghost btn-sm rounded-btn'>
-            Projects
-          </RouteLink>
-          <RouteLink to='/about' className='btn btn-ghost btn-sm rounded-btn'>
-            About
-          </RouteLink>
+          <RouteLink to='/'>Home</RouteLink>
+          <RouteLink to='/posts'>Posts</RouteLink>
+          <RouteLink to='/projects'>Projects</RouteLink>
+          <RouteLink to='/about'>About</RouteLink>
         </div>
       </div>
       <div className='navbar-end'>

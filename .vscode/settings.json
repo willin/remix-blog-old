@@ -4,6 +4,7 @@
     "clsx",
     "daisyui",
     "esbuild",
+    "frontmatter",
     "rehype",
     "tailwindcss",
     "willin"

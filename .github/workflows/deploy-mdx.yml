@@ -1,0 +1,42 @@
+name: Publish
+on:
+  push:
+    branches:
+      - main
+      - preview
+    paths-ignore:
+      - 'app/**'
+      - .vscode/**
+      - .github/**
+      - LICENSE
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: scripts
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Prepare
+        run: |-
+          sudo timedatectl set-timezone Asia/Shanghai
+          yarn
+      - name: Build
+        run: |-
+          yarn start ${{ github.sha }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          API_KEY: ${{ github.ref_name == 'main' && secrets.API_KEY  || secrets.API_KEY_PREVIEW }}
+          API_URL: ${{ github.ref_name == 'main' && secrets.API_URL  || secrets.API_URL_PREVIEW }}

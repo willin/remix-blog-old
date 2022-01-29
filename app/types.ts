@@ -12,3 +12,29 @@ export type LoaderFunctionArgs = {
     any
   >;
 };
+
+export type WFrontMatter = {
+  title: string;
+  date: string;
+  tags?: string[];
+  year?: number;
+  image?: string;
+  description?: string;
+  readingTime?: {
+    text: string;
+    minutes: number;
+    time: number;
+    words: number;
+  };
+};
+
+export type WPost = {
+  slug: string;
+  hash: string;
+  frontmatter: WFrontMatter;
+  type?: string;
+  locale?: string | boolean;
+  deleted?: boolean;
+  html?: string;
+  code?: string;
+};

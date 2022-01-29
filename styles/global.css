@@ -10,7 +10,9 @@
   a,
   a *,
   button,
-  button * {
+  button *,
+  .btn,
+  .btn * {
     cursor: url('/pointer.cur'), pointer !important;
   }
 
@@ -74,5 +76,11 @@
     @apply brightness-50 saturate-100;
     transform: rotate(-3deg) scale(1.2);
     /* scaleX(-1); */
+  }
+
+  .post-cover {
+    @apply overflow-hidden;
+    width: 300px !important;
+    height: 200px;
   }
 }
