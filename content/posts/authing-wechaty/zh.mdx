@@ -2,6 +2,7 @@
 title: Authing 团队管理 + Wechaty 机器人 = 无限可能
 date: '2022-01-21'
 tags: [wechaty, bot, sso, authing]
+description: 分别以微信群、飞书、Authing 作为上游用户源，构建人事管理机器人的实际案例教程。
 ---
 
 # 用户故事
@@ -190,7 +191,7 @@ describe('extension', () => {
 
 # 上手做几个机器人吧
 
-示例中（来自 POC 项目）使用的 Wechaty 版本为 `0.75` 和 puppty 为 `padlocal` （基于 iPad 微信协议）。可以访问示例代码仓库下载： https://github.com/Authing/wechaty-authing-poc
+示例中（来自 POC 项目）使用的 Wechaty 版本为 `0.75` 和 puppty 为 `padlocal` （基于 iPad 微信协议）。可以访问示例代码仓库下载： [https://github.com/Authing/wechaty-authing-poc](https://github.com/Authing/wechaty-authing-poc)
 
 ## 使用微信群作为上游用户数据
 
@@ -301,7 +302,7 @@ class ExtendedWechatyAuthing extends WechatyAuthing {
 }
 ```
 
-参考文档： https://docs.authing.cn/v2/reference/sdk-for-node/management/
+参考文档： [https://docs.authing.cn/v2/reference/sdk-for-node/management/](https://docs.authing.cn/v2/reference/sdk-for-node/management/)
 
 ### 扩展 Wechaty 插件
 
@@ -327,18 +328,16 @@ const bot = createBot(process.env.WECHATY_PADLOCAL_TOKEN);
 bot.use(authing.plugin());
 ```
 
-更多关于 Wechaty 插件的使用及开发，可以访问： https://wechaty.js.org/docs/using-plugin-with-wechaty/overview
-
----
+更多关于 Wechaty 插件的使用及开发，可以访问： [https://wechaty.js.org/docs/using-plugin-with-wechaty/overview](https://wechaty.js.org/docs/using-plugin-with-wechaty/overview)
 
 ## 注意事项
 
 ## 微信限制
 
-- 微信好友上限： 5000 人 https://kf.qq.com/faq/161223IrAjUn161223riUzaa.html
+- 微信好友上限： 5000 人 [https://kf.qq.com/faq/161223IrAjUn161223riUzaa.html](https://kf.qq.com/faq/161223IrAjUn161223riUzaa.html)
 - 主动添加好友： 每日 30 次请求上限
 - 被动添加好友： 每日 180 次请求上限
-- 邀请加群： https://kf.qq.com/faq/161223uIfIre161223aUrmqU.html
+- 邀请加群： [https://kf.qq.com/faq/161223uIfIre161223aUrmqU.html](https://kf.qq.com/faq/161223uIfIre161223aUrmqU.html)
   - 超过 40 人群需要对方同意
   - 超过 100 人群需要对方开通微信支付（实名、绑卡）
   - 普通群人数上限 500
@@ -447,5 +446,5 @@ error Command failed with exit code 1.
 
 # Refs
 
-- Wechaty Authing 插件仓库： https://github.com/Authing/wechaty-authing
-- 基于该插件的 POC 示例代码仓库： https://github.com/Authing/wechaty-authing-poc
+- Wechaty Authing 插件仓库： [https://github.com/Authing/wechaty-authing](https://github.com/Authing/wechaty-authing)
+- 基于该插件的 POC 示例代码仓库： [https://github.com/Authing/wechaty-authing-poc](https://github.com/Authing/wechaty-authing-poc)

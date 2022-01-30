@@ -14,7 +14,7 @@ export const getContents = async (
     })
   );
   const posts = contents.sort((a, b) =>
-    Date(a.frontmatter.date) < Date(b.frontmatter.date) ? 1 : -1
+    new Date(a.frontmatter.date) < new Date(b.frontmatter.date) ? 1 : -1
   );
 
   return posts;

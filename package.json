@@ -4,6 +4,7 @@
   "description": "R3mix of Willin.Wang",
   "license": "GPL-3.0",
   "scripts": {
+    "compress": "node scripts/images.js",
     "build": "npm run build:css && NODE_ENV=production remix build",
     "dev": "pm2-dev ./pm2.config.js  --env development",
     "build:css": "postcss styles/**/*.css --base styles --dir app/styles --env production",
