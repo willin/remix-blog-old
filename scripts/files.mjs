@@ -63,8 +63,9 @@ async function getChangedFiles(currentCommitSha, compareCommitSha) {
   try {
     const lineParser = /^(?<change>\w).*?\s+(?<filename>.+$)/;
     const gitOutput = execSync(
-      `git diff --name-status ${compareCommitSha} ${currentCommitSha}`
-    ).toString();
+      `git diff --name-status ${compareCommitSha} ${currentCommitSha}`,
+      { encoding: 'utf8' }
+    );
     const changedFiles = gitOutput
       .split('\n')
       .map((line) => line.match(lineParser)?.groups)
@@ -93,6 +94,7 @@ async function getChangedFiles(currentCommitSha, compareCommitSha) {
     }
     return [...new Set(changes)];
   } catch (error) {
+    console.error(error);
     return getAllFiles();
   }
 }
