@@ -1,9 +1,6 @@
 name: Publish
 on:
   push:
-    branches:
-      - main
-      - preview
     paths-ignore:
       - 'app/**'
       - .vscode/**
@@ -22,6 +19,8 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v2
+        with:
+          fetch-depth: '50'
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
