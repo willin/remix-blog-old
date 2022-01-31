@@ -77,12 +77,6 @@
     transform: rotate(-3deg) scale(1.2);
     /* scaleX(-1); */
   }
-
-  .post-cover {
-    @apply overflow-hidden;
-    width: 300px !important;
-    height: 200px;
-  }
 }
 
 /* Code Highlight */
