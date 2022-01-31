@@ -1,10 +1,11 @@
+import customCodeCss from '~/styles/code.css';
 import { json, LinksFunction, useLoaderData } from 'remix';
 import type { MetaFunction, LoaderFunction } from 'remix';
 import { useMdxComponent } from '~/components/mdx';
 import { LoaderFunctionArgs, WPost } from '~/types';
 import { siteTitle } from '~/config';
 import { PostMeta } from '~/components/posts/post-meta';
-import customCodeCss from '~/styles/code.css';
+import { PostLayout } from '~/components/posts/post-prose';
 
 export const meta: MetaFunction = ({ data }: { data: WPost }) => {
   let title = siteTitle;
@@ -56,7 +57,7 @@ export default function Post() {
   }
   return (
     <main className='mx-8'>
-      <div className='card glass prose max-w-none p-6 mb-6 text-primary-content'>
+      <PostLayout>
         <h1 className='mb-2'>{frontmatter.title}</h1>
         <PostMeta post={post} />
 
@@ -67,7 +68,7 @@ export default function Post() {
         ) : (
           <div dangerouslySetInnerHTML={{ __html: html }} />
         )}
-      </div>
+      </PostLayout>
     </main>
   );
 }
