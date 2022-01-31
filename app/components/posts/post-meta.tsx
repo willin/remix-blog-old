@@ -4,13 +4,13 @@ import { WPost } from '~/types';
 export function PostMeta({ post }: { post: WPost }) {
   return (
     <div>
-      <div className='badge badge-info mr-2'>
+      <div className='badge badge-info mr-2 text-secondary'>
         发表于： {post.frontmatter.date}
       </div>
-      <div className='badge badge-info mr-2'>
+      <div className='badge badge-info mr-2 text-secondary'>
         阅读预计： {Math.ceil(post.frontmatter.readingTime?.minutes)} 分钟
       </div>
-      <div className='badge badge-info mr-2'>
+      <div className='badge badge-info mr-2 text-secondary'>
         文章字数： {formatNumber(post.frontmatter.readingTime?.words)}
       </div>
     </div>

@@ -125,7 +125,7 @@ image: /images/hanhan-i-love-u/home.png
 
 由于我用的是 [Authing](https://www.authing.cn/?utm_source=v0&utm_campaign=hanhan) 用户集成，所以省去了用户表的设计和用户相关接口的设计。
 
-```prisma
+```prisma prisma/schema.prisma
 // 域名类型
 enum DomainType {
   A
@@ -262,7 +262,7 @@ graph TD
 
 当然也有现成的库可以直接用，但是因为没几行代码，我就自己手撸了。
 
-```ts
+```ts src/lib/cloudfalre.ts
 import { Domains } from '@prisma/client';
 import { CfAPIToken, CfZoneId } from '../config';
 
@@ -351,7 +351,7 @@ IPv6 校验正则：
 
 以域名注册提交为例：
 
-```ts
+```ts src/components/domain/create.tsx focus=3:6,23:24,31:32
 async function submit(e: SyntheticEvent) {
   e.preventDefault();
   // 因为我 Vue、 React 都会用，且用的都比较少
