@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 async function getCommit(commit) {
   if (!commit) return { sha: '' };
@@ -21,6 +21,4 @@ async function getCommit(commit) {
   };
 }
 
-module.exports = {
-  getCommit
-};
+export { getCommit };

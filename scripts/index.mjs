@@ -1,7 +1,7 @@
-const axios = require('axios');
-const { getChangedFiles, fileDirExists, scanDirLocales } = require('./files');
-const { getCommit } = require('./commit');
-const { compileFile } = require('./mdx');
+import axios from 'axios';
+import { getChangedFiles, fileDirExists, scanDirLocales } from './files.mjs';
+import { getCommit } from './commit.mjs';
+import { compileFile } from './mdx.mjs';
 
 const [currentCommitSha = process.env.GITHUB_SHA] = process.argv.slice(2);
 

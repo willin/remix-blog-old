@@ -1,17 +1,40 @@
-const path = require('path');
-const fsp = require('fs/promises');
-const crypto = require('crypto');
-const { bundleMDX } = require('mdx-bundler');
-const { getMDXComponent: getComponent } = require('mdx-bundler/client');
-const readingTime = require('reading-time');
-const { createElement } = require('react');
-const { renderToString } = require('react-dom/server');
-const { remarkMdxImages } = require('remark-mdx-images');
+import { fileURLToPath } from 'url';
+import path from 'path';
+import fsp from 'fs/promises';
+import crypto from 'crypto';
+import { bundleMDX } from 'mdx-bundler';
+import { getMDXComponent as getComponent } from 'mdx-bundler/client/index.js';
+import readingTime from 'reading-time';
+import { createElement } from 'react';
+import { renderToString } from 'react-dom/server.js';
+// Plugins
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import remarkGfm from 'remark-gfm';
+import remarkGithub from 'remark-github';
+import { remarkMermaid } from 'remark-mermaidjs';
+import { remarkCodeHike } from '@code-hike/mdx';
+import theme from './highlight.mjs';
 
+// eslint-disable-next-line no-underscore-dangle
+const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = path.dirname(__filename);
 const CONTENT = path.join(__dirname, '../content');
 
 const mdxComponents = {
   // Custom Components
+  a: (props) =>
+    createElement('a', {
+      target: '_blank',
+      ...props
+    }),
+  img: ({ src, ...rest }) =>
+    createElement('img', {
+      'data-src': src,
+      className: 'post-image lazyload',
+      ...rest
+    })
 };
 
 function getMdxComponent(code) {
@@ -47,31 +70,34 @@ async function compileFile(file) {
     source: fileContent,
     ...(Object.keys(files).length > 0 ? { files } : {}),
     xdmOptions(options) {
-      // options.remarkPlugins = [
-      //   ...(options.remarkPlugins ?? []),
-      //   remarkMdxCodeMeta,
-      // ]
-      // options.rehypePlugins = [
-      //   ...(options.rehypePlugins ?? []),
-      //   rehypeHighlight
-      // ];
+      // eslint-disable-next-line no-param-reassign
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        rehypeSlug,
+        rehypeAutolinkHeadings
+      ];
       // eslint-disable-next-line no-param-reassign
       options.remarkPlugins = [
         ...(options.remarkPlugins ?? []),
-        remarkMdxImages
+        remarkGfm,
+        [remarkGithub, { repository: 'willin/willin.wang' }],
+        [
+          remarkMermaid,
+          {
+            theme: 'dark'
+          }
+        ],
+        [
+          remarkCodeHike,
+          {
+            theme,
+            lineNumbers: true
+          }
+        ]
       ];
 
       return options;
     }
-    // esbuildOptions: (options) => {
-    //   // eslint-disable-next-line no-param-reassign
-    //   // options.loader = {
-    //   //   ...options.loader,
-    //   //   '.png': 'dataurl'
-    //   // };
-
-    //   return options;
-    // }
   });
 
   const Component = getMdxComponent(code);
@@ -94,6 +120,4 @@ async function compileFile(file) {
   };
 }
 
-module.exports = {
-  compileFile
-};
+export { compileFile };

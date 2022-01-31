@@ -12,7 +12,7 @@ export function PostCard({ post }: { post: WPost }) {
             post.frontmatter.image ||
             'https://via.placeholder.com/300x200?text=%E6%97%A0%E5%9B%BE'
           }
-          className='rounded-lg shadow-lg post-cover'
+          className='rounded-lg shadow-lg overflow-hidden h-[200px] !w-[300px]'
         />
       </figure>
       <div className='card-body'>

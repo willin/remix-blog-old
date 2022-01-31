@@ -47,8 +47,8 @@
     white-space: nowrap;
   }
 
-  a[target='_blank'],
-  a[href]:not(:where(
+  main a[target='_blank'],
+  main a[href]:not(:where(
   /* exclude hash only links */
   [href^="#"],
   /* exclude relative links */
@@ -61,6 +61,12 @@
     /* content: ' ↗️ '; */
     content: ' '
       url(data:image/svg+xm;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAV0lEQVR4Xq2QwQ2AAAwC3cmd2Kk7sRP64CEJ9qOX8OPatMc/QKppnEPhTmJh23CLiwAqIw21CybKQ28qQi37WGFYBJcwfJQpP8LlEHKyZMF0IdmF13zlAjZ/6H4wb+mUAAAAAElFTkSuQmCC);
+  }
+  .prose p > svg {
+    @apply mx-auto my-2;
+  }
+  .prose .post-image {
+    @apply mx-auto my-2 cursor-pointer max-h-[90vh];
   }
 }
 
@@ -76,11 +82,5 @@
     @apply brightness-50 saturate-100;
     transform: rotate(-3deg) scale(1.2);
     /* scaleX(-1); */
-  }
-
-  .post-cover {
-    @apply overflow-hidden;
-    width: 300px !important;
-    height: 200px;
   }
 }

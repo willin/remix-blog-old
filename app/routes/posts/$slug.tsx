@@ -1,9 +1,10 @@
-import { json, useLoaderData } from 'remix';
+import { json, LinksFunction, useLoaderData } from 'remix';
 import type { MetaFunction, LoaderFunction } from 'remix';
 import { useMdxComponent } from '~/components/mdx';
 import { LoaderFunctionArgs, WPost } from '~/types';
 import { siteTitle } from '~/config';
 import { PostMeta, PostTags } from '~/components/posts/post-meta';
+import customCodeCss from '~/styles/code.css';
 
 export const meta: MetaFunction = ({ data }: { data: WPost }) => {
   let title = siteTitle;
@@ -17,6 +18,13 @@ export const meta: MetaFunction = ({ data }: { data: WPost }) => {
     description
   };
 };
+
+export const links: LinksFunction = () => [
+  {
+    rel: 'stylesheet',
+    href: customCodeCss
+  }
+];
 
 export const loader: LoaderFunction = async ({
   params,
@@ -47,8 +55,8 @@ export default function Post() {
     Component = useMdxComponent(code);
   }
   return (
-    <div className='card glass prose max-w-none p-6 mb-6'>
-      <h1 className='mb-2'>{frontmatter.title}</h1>
+    <div className='card glass prose max-w-none p-6 mb-6 text-primary-content'>
+      <h1 className='mb-2 text-primary'>{frontmatter.title}</h1>
       <PostMeta post={post} />
       <div className='flex my-2'>
         <div>本文标签：</div>
