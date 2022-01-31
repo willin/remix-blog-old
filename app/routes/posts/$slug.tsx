@@ -5,6 +5,7 @@ import { LoaderFunctionArgs, WPost } from '~/types';
 import { siteTitle } from '~/config';
 import { PostMeta, PostTags } from '~/components/posts/post-meta';
 import customCodeCss from '~/styles/code.css';
+import { PostLayout } from '~/components/posts/post-prose';
 
 export const meta: MetaFunction = ({ data }: { data: WPost }) => {
   let title = siteTitle;
@@ -55,7 +56,7 @@ export default function Post() {
     Component = useMdxComponent(code);
   }
   return (
-    <div className='card glass prose max-w-none p-6 mb-6 text-primary-content'>
+    <PostLayout>
       <h1 className='mb-2 text-primary'>{frontmatter.title}</h1>
       <PostMeta post={post} />
       <div className='flex my-2'>
@@ -69,6 +70,6 @@ export default function Post() {
       ) : (
         <div dangerouslySetInnerHTML={{ __html: html }} />
       )}
-    </div>
+    </PostLayout>
   );
 }

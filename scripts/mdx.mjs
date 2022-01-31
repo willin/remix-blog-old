@@ -12,8 +12,9 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import remarkGfm from 'remark-gfm';
 import remarkGithub from 'remark-github';
-import { remarkMermaid } from 'remark-mermaidjs';
+// import { remarkMermaid } from 'remark-mermaidjs';
 import { remarkCodeHike } from '@code-hike/mdx';
+import remarkMermaid from './mermaid.mjs';
 import theme from './highlight.mjs';
 
 // eslint-disable-next-line no-underscore-dangle

@@ -57,6 +57,9 @@ function getAllFiles() {
  * 增量更新文件
  */
 async function getChangedFiles(currentCommitSha, compareCommitSha) {
+  if (currentCommitSha === compareCommitSha) {
+    return getAllFiles();
+  }
   try {
     const lineParser = /^(?<change>\w).*?\s+(?<filename>.+$)/;
     const gitOutput = execSync(
@@ -90,7 +93,6 @@ async function getChangedFiles(currentCommitSha, compareCommitSha) {
     }
     return [...new Set(changes)];
   } catch (error) {
-    console.error('Something went wrong trying to get changed files.', error);
     return getAllFiles();
   }
 }
