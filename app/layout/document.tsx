@@ -4,6 +4,7 @@ import clsx from 'classnames';
 import { Header } from '~/components/header';
 import { Footer } from '~/components/footer';
 import { THEMES_DARK } from '~/config';
+import { LoadingToast } from '~/components/toast';
 import { useTheme } from './theme';
 
 export function Document({
@@ -34,6 +35,7 @@ export function Document({
           {children}
         </div>
         <Footer />
+        <LoadingToast />
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'development' && <LiveReload />}
