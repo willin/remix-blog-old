@@ -16,6 +16,11 @@ export function PostList({ posts }: { posts: WPost[] }) {
     sortBlogPosts(posts)
   );
 
+  function clearSearch() {
+    setSearch('');
+    ref.current.value = '';
+  }
+
   const debouncedFilter = debounce(() => {
     setFilteredPosts(sortBlogPosts(posts, search));
   }, 50);
@@ -48,7 +53,7 @@ export function PostList({ posts }: { posts: WPost[] }) {
           <button
             disabled={search === ''}
             className='absolute top-0 right-0 rounded-l-none btn btn-primary'
-            onClick={setSearch.bind(null, '')}>
+            onClick={clearSearch}>
             <svg
               className='w-6 h-6'
               fill='none'
