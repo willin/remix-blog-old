@@ -1,0 +1,21 @@
+name = "willin-statistics"
+compatibility_date = "2021-12-29"
+account_id = "96f10109ea482311a0fe5e42d6ea35f7"
+type = "javascript"
+workers_dev = false
+routes = []
+
+kv_namespaces = [
+  { binding = "STATISTICS", id = "8130e778c1a140478ab7e0a418cfbd29", preview_id="8130e778c1a140478ab7e0a418cfbd29"  }
+]
+
+[vars]
+GITHUB_ID = "willin"
+WAKATIME_ID = "willin"
+
+[triggers]
+crons = ["0 */1 * * *", "10 */12 * * *"]
+
+[build.upload]
+format = "modules"
+main = "./worker.mjs"
