@@ -1,5 +1,6 @@
 import { animate } from 'framer-motion';
 import React, { useEffect, useRef } from 'react';
+import { formatNumber } from '~/lib/utils';
 
 export function Counter({ from, to }: { from: number; to: number }) {
   const nodeRef = useRef();
@@ -10,12 +11,12 @@ export function Counter({ from, to }: { from: number; to: number }) {
     const controls = animate<number>(from || 0, to, {
       duration: 1,
       onUpdate(value) {
-        node.textContent = parseInt(value, 10);
+        node.textContent = formatNumber(parseInt(value, 10));
       }
     });
 
     return () => controls.stop();
   }, [from, to]);
 
-  return <p ref={nodeRef} />;
+  return <span ref={nodeRef} />;
 }

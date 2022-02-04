@@ -31,6 +31,8 @@ export type DiscordStats = {
   coding: boolean;
   ide?: {
     project: string;
+    file: string;
+    type: string;
   };
 };
 

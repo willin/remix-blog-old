@@ -1,3 +1,8 @@
+import { DiscordStats } from '~/services/discord.server';
+import { GithubStats } from './github';
+
+export * from './github';
+
 export type LoaderFunctionArgs = {
   request: Request;
   params: Params;
@@ -5,7 +10,7 @@ export type LoaderFunctionArgs = {
     {
       NODE_ENV?: string;
       API_KEY: string;
-      VIEWS: KVNamespace;
+      STATISTICS: KVNamespace;
       CONTENTS: KVNamespace;
     },
     string,
@@ -37,4 +42,22 @@ export type WPost = {
   deleted?: boolean;
   html?: string;
   code?: string;
+};
+
+export type NpmStats = {
+  sum: number;
+  stats: [string, number][];
+};
+
+export type WakatimeStats = {
+  cummulative_total: {
+    decimal: string;
+  };
+};
+
+export type AllStatistics = {
+  discord: DiscordStats;
+  github: GithubStats;
+  npm: NpmStats;
+  wakatime: WakatimeStats;
 };
