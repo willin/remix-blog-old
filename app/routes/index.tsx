@@ -20,21 +20,41 @@ export default function Page() {
   const data = useLoaderData<AllStatistics>();
   return (
     <>
-      <OnlineStatus discord={data.discord} />
-      <div className='w-full mt-2 border stats border-base-300'>
-        <div className='stat'>
-          <div className='stat-figure text-primary'>
-            <button className='btn loading btn-circle btn-lg bg-base-200 btn-ghost'></button>
-          </div>
-          <div className='stat-value'>
-            {formatNumber(data.github.followers)} / 1,000
-          </div>
-          <div className='stat-title'>Github Followers 小目标</div>
-          <div className='stat-desc'>
-            <progress
-              value={data.github.followers}
-              max='10000'
-              className='progress progress-secondary'></progress>
+      <div className='flex justify-center flex-wrap'>
+        <div className=''>
+          <OnlineStatus discord={data.discord} />
+        </div>
+
+        <div className='lg:ml-20 border stats border-base-300'>
+          <div className='stat'>
+            <div className='stat-figure text-primary'>
+              <a href='https://github.com/willin' target='_blank'>
+                <button className='btn btn-circle btn-lg bg-base-200 btn-ghost'>
+                  <svg
+                    className='w-6 h-6'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                    xmlns='http://www.w3.org/2000/svg'>
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path>
+                  </svg>
+                </button>
+              </a>
+            </div>
+            <div className='stat-value'>
+              {formatNumber(data.github.followers)} / 1,000
+            </div>
+            <div className='stat-title'>Github Followers 小目标</div>
+            <div className='stat-desc'>
+              <progress
+                value={data.github.followers}
+                max='1000'
+                className='progress progress-secondary'></progress>
+            </div>
           </div>
         </div>
       </div>
@@ -58,7 +78,7 @@ export default function Page() {
           <div className='stat-value'>
             <Counter from={0} to={data.github.stars} />
           </div>
-          <div className='stat-desc'>Total Stars</div>
+          <div className='stat-desc'>Total Stars Earned</div>
         </div>
         <div className='stat'>
           <div className='stat-figure text-secondary'>
@@ -101,13 +121,25 @@ export default function Page() {
               to={parseInt(data.wakatime.cummulative_total.decimal, 10)}
             />
           </div>
-          <div className='stat-desc'>hours / week</div>
+          <div className='stat-desc'>hours in last 7 days</div>
         </div>
       </div>
 
-      <div className='flex flex-row'>
-        <div className='basis-1/2'>01</div>
-        <div className='basis-1/2'>
+      <div className='p-2 flex flex-wrap justify-center'>
+        {/* <div className='basis-full lg:basis-1/2'>
+          <p>ddd</p>
+          <p>ddd</p>
+          <p>ddd</p>
+          <p>
+            dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+          </p>
+          <p>ddd</p>
+          <p>ddd</p>
+          <p>ddd</p>
+          <p>ddd</p>
+          <p>ddd</p>
+        </div> */}
+        <div className='basis-full lg:basis-1/2 border shadow border-base-300 glass card p-6'>
           <GithubEvents events={data.github.events} />
         </div>
       </div>

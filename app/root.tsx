@@ -5,6 +5,7 @@ import type {
   LoaderFunction,
   ShouldReloadFunction
 } from 'remix';
+import { ExternalScriptsFunction } from 'remix-utils';
 import { Document } from '~/layout/document';
 import { sessionStore } from '~/services/session.server';
 import { ThemeProvider } from '~/layout/theme';
@@ -35,6 +36,19 @@ export const loader: LoaderFunction = async ({ request }) => {
 // https://remix.run/docs/en/v1/api/conventions#unstable_shouldreload
 export const unstable_shouldReload: ShouldReloadFunction = ({ submission }) =>
   !!submission && submission.action === '/api/theme';
+
+// create the scripts function with the correct type
+const scripts: ExternalScriptsFunction = () => [
+  {
+    async: true,
+    src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5059418763237956',
+    crossOrigin: 'anonymous'
+  }
+];
+
+// and export it through the handle, you could also create it inline here
+// if you don't care about the type
+export const handle = { scripts };
 
 export default function App() {
   const { theme } = useLoaderData<LoaderData>();

@@ -44,14 +44,30 @@ export type GithubEvent = {
   };
   payload: {
     action: string;
-    // Issue #no
-    number: number;
+    // Issue Event
+    issue: {
+      number: number;
+      html_url: string;
+    };
+    // comment
+    comment: {
+      html_url: string;
+    };
+    // Push Event
+    head: string;
+    // PR
+    pull_request: {
+      number: number;
+      html_url: string;
+    };
+    // PR Review Event
+    review: {
+      html_url: string;
+    };
     // Create/Delete 分支名
     ref: string;
     // tag/branch
     ref_type: 'branch' | 'tag';
-    // `https://github.com/${event.repo.name}/commit/${event.payload.head}`
-    head: string;
   };
 };
 

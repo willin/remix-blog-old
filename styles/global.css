@@ -27,6 +27,10 @@
     min-height: 100vh;
   }
 
+  div,
+  p {
+    @apply break-all;
+  }
   pre {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */

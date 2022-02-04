@@ -25,10 +25,6 @@ export function Document({
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
-        <script
-          async
-          src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5059418763237956'
-          crossOrigin='anonymous'></script>
       </head>
       <body>
         <div
