@@ -5,6 +5,7 @@ on:
       - 'app/**'
       - .vscode/**
       - .github/**
+      - workers/**
       - LICENSE
   workflow_dispatch:
 

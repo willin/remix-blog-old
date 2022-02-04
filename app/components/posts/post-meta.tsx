@@ -1,3 +1,4 @@
+import { Link } from 'remix';
 import { formatNumber } from '~/lib/utils';
 import { WPost } from '~/types';
 
@@ -22,7 +23,11 @@ export function PostTags({ post }: { post: WPost }) {
     <div className='btn-group content-center'>
       {post.frontmatter.tags?.map((tag) => (
         <button className='btn btn-outline btn-xs' key={`${post.slug}-${tag}`}>
-          {tag}
+          <Link
+            to={`/posts?search=${encodeURIComponent(tag)}`}
+            className='no-underline'>
+            {tag}
+          </Link>
         </button>
       ))}
     </div>

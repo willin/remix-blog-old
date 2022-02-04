@@ -16,6 +16,7 @@ export function Navbar() {
           <RouteLink to='/posts'>Posts</RouteLink>
           <RouteLink to='/projects'>Projects</RouteLink>
           <RouteLink to='/about'>About</RouteLink>
+          <RouteLink to='/roadmap'>Roadmap</RouteLink>
         </div>
       </div>
       <div className='navbar-end'>
