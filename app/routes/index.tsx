@@ -13,8 +13,7 @@ export const loader: LoaderFunction = async ({
   const discord = await getDiscordUser();
   const github = await STATISTICS.get('$$github', 'json');
   const npm = await STATISTICS.get('$$npm', 'json');
-  const wakatime = await STATISTICS.get('$$wakatime', 'json');
-  return json({ discord, github, npm, wakatime });
+  return json({ discord, github, npm });
 };
 export default function Page() {
   const data = useLoaderData<AllStatistics>();
@@ -28,22 +27,26 @@ export default function Page() {
         <div className='lg:ml-20 border stats border-base-300'>
           <div className='stat'>
             <div className='stat-figure text-primary'>
-              <a href='https://github.com/willin' target='_blank'>
-                <button className='btn btn-circle btn-lg bg-base-200 btn-ghost'>
-                  <svg
-                    className='w-6 h-6'
-                    fill='none'
-                    stroke='currentColor'
-                    viewBox='0 0 24 24'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth='2'
-                      d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path>
-                  </svg>
-                </button>
-              </a>
+              <div
+                className='tooltip tooltip-primary tooltip-bottom'
+                data-tip='加速助力'>
+                <a href='https://github.com/willin' target='_blank'>
+                  <button className='btn btn-circle btn-lg bg-base-200 btn-ghost'>
+                    <svg
+                      className='w-6 h-6'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                      xmlns='http://www.w3.org/2000/svg'>
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth='2'
+                        d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path>
+                    </svg>
+                  </button>
+                </a>
+              </div>
             </div>
             <div className='stat-value'>
               {formatNumber(data.github.followers)} / 1,000
@@ -59,7 +62,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className='my-2 w-full shadow stats'>
+      <div className='my-2 mx-auto w-full flex lg:w-3/4 shadow stats'>
         <div className='stat'>
           <div className='stat-figure text-secondary'>
             <svg
@@ -99,29 +102,6 @@ export default function Page() {
             <Counter from={500000} to={data.npm.sum} />
           </div>
           <div className='stat-desc'>Total Downloads</div>
-        </div>
-        <div className='stat'>
-          <div className='stat-figure text-secondary'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              className='inline-block w-8 h-8 stroke-current'>
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4'></path>
-            </svg>
-          </div>
-          <div className='stat-title'>Coding</div>
-          <div className='stat-value'>
-            <Counter
-              from={0}
-              to={parseInt(data.wakatime.cummulative_total.decimal, 10)}
-            />
-          </div>
-          <div className='stat-desc'>hours in last 7 days</div>
         </div>
       </div>
 

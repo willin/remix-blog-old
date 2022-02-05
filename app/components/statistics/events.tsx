@@ -84,9 +84,11 @@ function SwitchEvent(event: GithubEvent) {
 }
 
 export function GithubEvents({ events }: { events: GithubEvent[] }) {
+  const eventList = events.slice(0, 5);
+
   return (
-    <ol className='relative border-l border-primary-content'>
-      {events.map((event, i) => i < 210 && SwitchEvent(event))}
+    <ol className='relative border-l border-primary-content max-h-screen'>
+      {eventList.map((event) => SwitchEvent(event))}
     </ol>
   );
 }
