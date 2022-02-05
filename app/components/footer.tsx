@@ -14,7 +14,16 @@ export function Footer() {
           <div>
             <ul>
               <li className='mb-4'>
+                <h4 className='text-secondary'>Pages</h4>
+              </li>
+              <li>
                 <Link to='/about'>About</Link>
+              </li>
+              <li>
+                <Link to='/posts'>Posts</Link>
+              </li>
+              <li>
+                <Link to='/projects'>Projects</Link>
               </li>
               <li>
                 <Link to='/roadmap'>Roadmap</Link>
@@ -24,10 +33,10 @@ export function Footer() {
           <div>
             <ul>
               <li className='mb-4'>
-                <Link to='/posts'>Posts</Link>
+                <h4 className='text-secondary'>Playground</h4>
               </li>
               <li>
-                <Link to='/projects'>Projects</Link>
+                <Link to='/playground/punycode'>Punycode</Link>
               </li>
             </ul>
           </div>
