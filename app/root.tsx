@@ -46,6 +46,10 @@ const scripts: ExternalScriptsFunction = () => [
     async: true,
     src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5059418763237956',
     crossOrigin: 'anonymous'
+  },
+  {
+    async: true,
+    src: 'https://platform-api.sharethis.com/js/sharethis.js#property=618092f66fc5810019e08702&product=sticky-share-buttons'
   }
 ];
 
