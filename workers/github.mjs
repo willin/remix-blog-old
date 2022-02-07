@@ -35,4 +35,5 @@ export async function GithubJob() {
   statistics.topics = Array.from(new Set([...statistics.topics]));
   statistics.languages = Array.from(new Set([...statistics.languages]));
   await STATISTICS.put('$$github', JSON.stringify(statistics));
+  await STATISTICS.put('$$github_repos', JSON.stringify(repositories));
 }

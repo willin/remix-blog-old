@@ -73,6 +73,14 @@
   .prose .post-image {
     @apply mx-auto my-2 cursor-pointer max-h-[90vh];
   }
+
+  /* .prose .article::first-letter {
+    float: left;
+    font-size: 8rem;
+    line-height: 1;
+    margin: 0 0.2em 0 0;
+    vertical-align: top;
+  } */
 }
 
 @layer components {

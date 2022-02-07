@@ -59,17 +59,22 @@ export default function Post() {
     <PostLayout>
       <h1 className='mb-2 text-primary'>{frontmatter.title}</h1>
       <PostMeta post={post} />
+
+      {Component ? (
+        <article className='article'>
+          <Component />
+        </article>
+      ) : (
+        <article
+          className='article'
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      )}
+
       <div className='flex my-2'>
         <div>本文标签：</div>
         <PostTags post={post} />
       </div>
-      {Component ? (
-        <div>
-          <Component />
-        </div>
-      ) : (
-        <div dangerouslySetInnerHTML={{ __html: html }} />
-      )}
     </PostLayout>
   );
 }
