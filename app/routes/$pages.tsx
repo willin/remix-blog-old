@@ -4,7 +4,7 @@ import type { MetaFunction, LoaderFunction } from 'remix';
 import { useMdxComponent } from '~/components/mdx';
 import { LoaderFunctionArgs, WPost } from '~/types';
 import { siteTitle } from '~/config';
-import { PostMeta } from '~/components/posts/post-meta';
+import { PostCopyright, PostMeta } from '~/components/posts/post-meta';
 import { PostLayout } from '~/components/posts/post-prose';
 
 export const meta: MetaFunction = ({ data }: { data: WPost }) => {
@@ -68,6 +68,8 @@ export default function Post() {
         ) : (
           <div dangerouslySetInnerHTML={{ __html: html }} />
         )}
+
+        <PostCopyright post={post} type='pages' />
       </PostLayout>
     </main>
   );

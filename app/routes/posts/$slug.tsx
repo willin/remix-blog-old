@@ -3,7 +3,11 @@ import type { MetaFunction, LoaderFunction } from 'remix';
 import { useMdxComponent } from '~/components/mdx';
 import { LoaderFunctionArgs, WPost } from '~/types';
 import { siteTitle } from '~/config';
-import { PostMeta, PostTags } from '~/components/posts/post-meta';
+import {
+  PostCopyright,
+  PostMeta,
+  PostTags
+} from '~/components/posts/post-meta';
 import customCodeCss from '~/styles/code.css';
 import { PostLayout } from '~/components/posts/post-prose';
 
@@ -59,7 +63,6 @@ export default function Post() {
     <PostLayout>
       <h1 className='mb-2 text-primary'>{frontmatter.title}</h1>
       <PostMeta post={post} />
-
       {Component ? (
         <article className='article'>
           <Component />
@@ -70,6 +73,8 @@ export default function Post() {
           dangerouslySetInnerHTML={{ __html: html }}
         />
       )}
+
+      <PostCopyright post={post} />
 
       <div className='flex my-2'>
         <div>本文标签：</div>
