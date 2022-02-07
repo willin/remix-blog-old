@@ -281,3 +281,125 @@ graph TD
 ```
 
 ### MDX 编译
+
+默认生成为 HTML，如果使用到了 jsx/tsx 才会生成为 Code。
+
+```js
+async function compileFile(file) {
+  const { type, slug, locale } = file;
+  const fileDir = path.join(CONTENT, type, slug);
+  const filePath = path.join(fileDir, `${locale}.mdx`);
+  const fileContent = await fsp.readFile(filePath, 'utf-8');
+  let files = {};
+  files = await fsp
+    .readdir(fileDir)
+    .then((list) => list.filter((x) => !x.endsWith('.mdx')));
+  const results = await Promise.all(
+    files.map(async (filename) =>
+      fsp.readFile(path.join(fileDir, filename), 'utf8')
+    )
+  );
+  files = Object.fromEntries(
+    results.map((content, i) => [`./${files[i]}`, content])
+  );
+
+  const { frontmatter, code } = await bundleMDX({
+    source: fileContent,
+    ...(Object.keys(files).length > 0 ? { files } : {}),
+    xdmOptions(options) {
+      // eslint-disable-next-line no-param-reassign
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        rehypeSlug,
+        rehypeAutolinkHeadings
+      ];
+      // eslint-disable-next-line no-param-reassign
+      options.remarkPlugins = [
+        ...(options.remarkPlugins ?? []),
+        remarkGfm,
+        [remarkGithub, { repository: 'willin/willin.wang' }],
+        [
+          remarkMermaid,
+          {
+            theme: 'dark'
+          }
+        ],
+        [
+          remarkCodeHike,
+          {
+            theme,
+            lineNumbers: true
+          }
+        ]
+      ];
+
+      return options;
+    }
+  });
+
+  const Component = getMdxComponent(code);
+  const html = renderToString(createElement(Component));
+  const hasComponents = true || Object.keys(files).length > 0;
+
+  const hash = crypto
+    .createHash('sha256')
+    .update(frontmatter + code)
+    .digest('hex');
+
+  Object.assign(frontmatter, {
+    readingTime: readingTime(fileContent)
+  });
+  return {
+    hash,
+    frontmatter,
+    html,
+    code: hasComponents ? code : undefined
+  };
+}
+```
+
+### Mermaid 插件
+
+由于 `mdx-mermaid` 插件有效率和字体问题，所以重新写了一个简单的版本。
+
+```js
+import { parseFragment } from 'parse5';
+import { fromParse5 } from 'hast-util-from-parse5';
+import { visit } from 'unist-util-visit';
+import { createElement } from 'react';
+import { renderToString } from 'react-dom/server.js';
+
+export default function remarkMermaid() {
+  return (tree) => {
+    visit(tree, { type: 'code', lang: 'mermaid' }, (node, index, parent) => {
+      const div = createElement(
+        'div',
+        {
+          className: 'mermaid'
+        },
+        node.value
+      );
+      const value = renderToString(div);
+
+      parent.children.splice(index, 1, {
+        type: 'div',
+        children: [{ type: 'html', value }],
+        data: { hChildren: [fromParse5(parseFragment(value))] }
+      });
+    });
+  };
+}
+```
+
+# 统计分析 Workers
+
+计划为分别统计以下数据：
+
+- Github 开源动态
+- NPM 下载量
+- Wakatime 代码动态
+- Discord 活跃信息（无须 Workers）
+
+# 其他
+
+过年期间，草草上线了一个版本。具体已经实现的功能和后续的 TODO List 可以参考 [Roadmap](/roadmap)。
