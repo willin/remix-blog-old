@@ -5,6 +5,7 @@ import { Header } from '~/components/header';
 import { Footer } from '~/components/footer';
 import { THEMES_DARK } from '~/config';
 import { LoadingToast } from '~/components/toast';
+import { ExternalScripts } from 'remix-utils';
 import { useTheme } from './theme';
 
 export function Document({
@@ -25,6 +26,7 @@ export function Document({
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
+        <ExternalScripts />
       </head>
       <body>
         <div
