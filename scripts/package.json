@@ -11,7 +11,7 @@
   "author": "Willin Wang <willin@willin.org> (https://willin.wang/)",
   "license": "Apache-2.0",
   "dependencies": {
-    "@code-hike/mdx": "^0.3.0-next.20",
+    "@code-hike/mdx": "^0.3.0-next.23",
     "axios": "^0.25.0",
     "esbuild": "^0.14.14",
     "hast-util-from-parse5": "^7.1.0",

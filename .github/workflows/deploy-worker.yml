@@ -1,9 +1,9 @@
 name: Deploy Workers
 
 on:
-  push:
-    paths-ignore:
-      - '!workers/**'
+  # push:
+  #   paths-ignore:
+  #     - '!workers/**'
   workflow_dispatch:
 
 jobs:

@@ -40,7 +40,7 @@ export const unstable_shouldReload: ShouldReloadFunction = ({ submission }) =>
 // create the scripts function with the correct type
 const scripts: ExternalScriptsFunction = () => [
   {
-    src: '/clipboard.js'
+    src: 'https://willin.wang/clipboard.js'
   },
   {
     async: true,
