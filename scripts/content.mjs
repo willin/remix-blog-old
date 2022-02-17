@@ -90,15 +90,20 @@ const main = async () => {
     };
     const sourceFiles = await Promise.all(
       files.map((f) =>
-        readFile(path.resolve(CONTENT, type, slug, f)).then((c) => ({
-          [`./${f}`]: c
-        }))
+        readFile(path.resolve(CONTENT, type, slug, f)).then((c) => [
+          `./${f}`,
+          c
+        ])
       )
     );
     // Build Content
     writeFile(
       path.resolve(OUTPUT, locale, type, `${slug}.json`),
-      JSON.stringify({ frontmatter, content, files: sourceFiles })
+      JSON.stringify({
+        frontmatter,
+        content,
+        files: Object.fromEntries(sourceFiles)
+      })
     );
     const { tags = [] } = frontmatter;
     if (totalWords[locale]) {
