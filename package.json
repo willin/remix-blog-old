@@ -6,12 +6,13 @@
   "license": "GPL-3.0",
   "scripts": {
     "compress": "node scripts/images.mjs",
-    "build": "npm run build:prisma && npm run build:css && NODE_ENV=production remix build",
+    "build": "npm run build:content && npm run build:prisma && npm run build:css && NODE_ENV=production remix build",
     "dev": "npm run build && pm2-dev ./pm2.config.js  --env development",
+    "build:content": "node scripts/content.mjs",
     "build:prisma": "PRISMA_CLIENT_ENGINE_TYPE=dataproxy prisma generate",
     "build:css": "postcss styles/**/*.css --base styles --dir app/styles --env production",
     "postinstall": "remix setup cloudflare-pages",
-    "lint": "eslint --fix --ext .ts,.tsx --ignore-path .gitignore .",
+    "lint": "eslint --fix --ext .ts,.tsx --ignore-path .eslintignore .",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -32,11 +33,13 @@
     "autoprefixer": "^10.4.2",
     "esbuild": "^0.14.22",
     "eslint": "^8.9.0",
+    "eslint-config-willin": "^1.0.8",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "gray-matter": "^4.0.3",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.4",
     "pm2": "^5.1.2",
@@ -44,6 +47,7 @@
     "postcss-cli": "^9.1.0",
     "prettier": "^2.5.1",
     "prisma": "^3.9.2",
+    "reading-time": "^1.5.0",
     "tailwindcss": "^3.0.23",
     "typescript": "^4.5.5",
     "wrangler": "^0.0.0-a73e32f"

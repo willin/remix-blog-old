@@ -8,6 +8,6 @@ demo/
 /.mf
 /build
 /public/build
-/public/contents
+/public/_content
 /app/styles
 /functions
