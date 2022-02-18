@@ -1,2 +1,19 @@
+# Example:
+# /secure/page
+#   X-Frame-Options: DENY
+#   X-Content-Type-Options: nosniff
+#   Referrer-Policy: no-referrer
+
+# /static/*
+#   Access-Control-Allow-Origin: *
+#   X-Robots-Tag: nosnippet
+
+# https://myproject.pages.dev/*
+#   X-Robots-Tag: noindex
+
+# Format:
+# [url]
+#   [name]: [value]
+
 /build/*
   Cache-Control: public, max-age=31536000, s-maxage=31536000
