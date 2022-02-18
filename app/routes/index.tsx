@@ -1,6 +1,7 @@
 import { json, LoaderFunction, useLoaderData } from 'remix';
+import { MdxComponent } from '~/components/mdx';
 import { getContent } from '~/services/content.server';
-import { LoaderFunctionArgs } from '~/types';
+import { LoaderFunctionArgs, WContent } from '~/types';
 
 export const loader: LoaderFunction = async ({
   request,
@@ -14,18 +15,15 @@ export const loader: LoaderFunction = async ({
     locale: 'zh'
   });
   return json({
-    content
+    ...content
   });
 };
 
 export default function Index() {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const data = useLoaderData();
-
+  const { code, html } = useLoaderData<WContent>();
   return (
     <div>
-      <h1>Title</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <MdxComponent code={code} html={html} />
     </div>
   );
 }

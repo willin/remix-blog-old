@@ -32,8 +32,6 @@ export type WFrontMatter = {
 
 export type WContent = {
   frontmatter: WFrontMatter;
-  content: string;
-  files?: {
-    [key: string]: string;
-  };
+  html: string;
+  code?: string;
 };

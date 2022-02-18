@@ -3,6 +3,10 @@ import fsp from 'fs/promises';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import readingTime from 'reading-time';
+import { bundleMDX } from 'mdx-bundler';
+import { createElement } from 'react';
+import { renderToString } from 'react-dom/server.js';
+import { getMDXComponent as getComponent } from 'mdx-bundler/client/index.js';
 
 // eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url);
@@ -11,6 +15,32 @@ const __dirname = path.dirname(__filename);
 
 const CONTENT = path.resolve(__dirname, '../content');
 const OUTPUT = path.resolve(__dirname, '../public/_content');
+
+const mdxComponents = {
+  // Custom Components
+  a: (props) =>
+    createElement('a', {
+      target: '_blank',
+      ...props
+    }),
+  img: ({ src, ...rest }) =>
+    createElement('img', {
+      'data-src': src,
+      className: 'post-image lazyload',
+      ...rest
+    })
+};
+
+function getMdxComponent(code) {
+  const Component = getComponent(code);
+  function WMdxComponent({ components, ...rest }) {
+    return Component({
+      components: { ...mdxComponents, ...components },
+      ...rest
+    });
+  }
+  return WMdxComponent;
+}
 
 const listFolders = (dir) =>
   fsp
@@ -97,12 +127,22 @@ const main = async () => {
       )
     );
     // Build Content
+    const { code } = await bundleMDX({
+      source: content,
+      files: Object.fromEntries(sourceFiles),
+      xdmOptions(options) {
+        return options;
+      }
+    });
+    const Component = getMdxComponent(code);
+    const html = renderToString(createElement(Component));
+
     writeFile(
       path.resolve(OUTPUT, locale, type, `${slug}.json`),
       JSON.stringify({
         frontmatter,
-        content,
-        files: Object.fromEntries(sourceFiles)
+        html,
+        code: sourceFiles.length > 0 ? code : undefined
       })
     );
     const { tags = [] } = frontmatter;
