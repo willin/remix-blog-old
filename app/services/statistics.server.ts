@@ -1,5 +1,6 @@
+import { decode } from 'js-base64';
 import { GithubRepo, GithubStats } from '~/types';
-import fetcher, { JSONObject } from './content.server';
+import { fetcher, JSONObject } from './content.server';
 
 export type NpmStats = {
   sum: number;
@@ -9,22 +10,24 @@ export type NpmStats = {
 const expirationTtl = 60 * 60;
 const GITHUB_ID = 'willin';
 const NPM_STATS_URL =
-  'https://raw.githubusercontent.com/wshow/github-readme-npm-downloads/main/npm.json';
+  'https://api.github.com/repos/wshow/github-readme-npm-downloads/contents/npm.json';
 
-export const npm = async (kv: KVNamespace): Promise<NpmStats> => {
+export const npmStat = async (kv: KVNamespace): Promise<NpmStats> => {
   const key = '$$npm';
 
-  let npm = await kv.get<NpmStats>(key, 'json');
-  if (!npm) {
-    npm = await fetcher<NpmStats>(NPM_STATS_URL);
-    await kv.put(key, JSON.stringify(npm), {
-      expirationTtl
-    });
+  const npm = await kv.get<NpmStats>(key, 'json');
+  if (npm) {
+    return npm;
   }
-  return npm;
+  const raw = await fetcher<{ content: string }>(NPM_STATS_URL);
+  const npmStr = decode(raw.content);
+  await kv.put(key, npmStr, {
+    expirationTtl
+  });
+  return JSON.parse(npmStr) as NpmStats;
 };
 
-export const github = async <T = GithubStats | GithubRepo[]>(
+export const githubStat = async <T = GithubStats | GithubRepo[]>(
   kv: KVNamespace,
   key: 'repos' | 'meta'
 ): Promise<T> => {

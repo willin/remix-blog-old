@@ -8,6 +8,11 @@ module.exports = {
     extend: {
       colors: {
         current: 'currentColor'
+      },
+      typography: {
+        corePlugins: {
+          code: false
+        }
       }
     }
   },

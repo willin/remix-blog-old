@@ -6,8 +6,8 @@
   "license": "GPL-3.0",
   "scripts": {
     "compress": "node scripts/images.mjs",
-    "build": "npm run build:content && npm run build:prisma && npm run build:css && NODE_ENV=production remix build",
-    "dev": "npm run build && pm2-dev ./pm2.config.js  --env development",
+    "build": "make build",
+    "dev": "pm2-dev ./pm2.config.js  --env development",
     "build:content": "node scripts/content.mjs",
     "build:prisma": "PRISMA_CLIENT_ENGINE_TYPE=dataproxy prisma generate",
     "build:css": "postcss styles/**/*.css --base styles --dir app/styles --env production",
@@ -22,6 +22,9 @@
     "@types/mermaid": "^8.2.7",
     "accept-language-parser": "^1.5.0",
     "classnames": "^2.3.1",
+    "dayjs": "^1.10.7",
+    "framer-motion": "^6.2.6",
+    "js-base64": "^3.7.2",
     "lazysizes": "^5.3.2",
     "mdx-bundler": "^8.0.1",
     "mermaid": "^8.14.0",
@@ -30,6 +33,7 @@
     "remix": "^1.2.1",
     "remix-i18n": "^0.2.0",
     "remix-utils": "^2.5.0",
+    "sharethis-reactjs": "^1.6.0",
     "simple-lightbox": "^2.1.0",
     "spin-delay": "^1.1.0"
   },
@@ -43,6 +47,7 @@
     "@types/react-dom": "^17.0.11",
     "@willin/eslint-config": "^0.1.1",
     "autoprefixer": "^10.4.2",
+    "cssnano": "^5.0.17",
     "daisyui": "^2.0.9",
     "esbuild": "^0.14.22",
     "eslint": "^8.9.0",
@@ -52,7 +57,6 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "gray-matter": "^4.0.3",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.4",
     "pm2": "^5.2.0",
@@ -60,10 +64,9 @@
     "postcss-cli": "^9.1.0",
     "prettier": "^2.5.1",
     "prisma": "^3.9.2",
-    "reading-time": "^1.5.0",
     "tailwindcss": "^3.0.23",
     "typescript": "^4.5.5",
-    "wrangler": "^0.0.0-10cb789"
+    "wrangler": "^0.0.0-575962d"
   },
   "engines": {
     "node": ">=14"

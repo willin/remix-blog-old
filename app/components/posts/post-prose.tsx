@@ -32,7 +32,7 @@ export function PostLayout({ children }: { children: ReactNode }) {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       onClick={handleClick}
-      className='card glass prose max-w-none p-6 mb-6 text-primary-content'>
+      className='card glass prose dark:prose-invert max-w-none p-6 mb-6 text-primary-content'>
       {children}
     </div>
   );

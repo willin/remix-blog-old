@@ -4,11 +4,18 @@ export type JSONObject = {
   [key: string | number]: string | number | boolean | JSONObject | JSONObject[];
 };
 
-export default async function fetcher<JSON = JSONObject>(
+export async function fetcher<JSON = JSONObject>(
   input: RequestInfo,
   init?: RequestInit
 ): Promise<JSON> {
-  const res = await fetch(input, init);
+  const res = await fetch(input, {
+    headers: {
+      'Content-Type': 'application/json',
+      'User-Agent':
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36'
+    },
+    ...(init || {})
+  });
   return res.json().catch(() => undefined);
 }
 

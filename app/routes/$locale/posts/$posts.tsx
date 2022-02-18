@@ -1,5 +1,10 @@
-import { json, LinksFunction, useLoaderData } from 'remix';
-import type { MetaFunction, LoaderFunction } from 'remix';
+import {
+  json,
+  LinksFunction,
+  useLoaderData,
+  MetaFunction,
+  LoaderFunction
+} from 'remix';
 import { MdxComponent } from '~/components/mdx';
 import { LoaderFunctionArgs, WContent } from '~/types';
 import {
@@ -7,10 +12,12 @@ import {
   PostMeta,
   PostTags
 } from '~/components/posts/post-meta';
-import customCodeCss from '~/styles/code.css';
+import { StickyShareButton } from '~/components/share';
 import { PostLayout } from '~/components/posts/post-prose';
 import { i18n } from '~/i18n';
 import { getContent } from '~/services/content.server';
+// eslint-disable-next-line import/no-unresolved
+import customCodeCss from '~/styles/code.css';
 
 export const meta: MetaFunction = ({ data }: { data: WContent }) => {
   let title = i18n.t('site.title');
@@ -55,20 +62,23 @@ export default function Post() {
   const { html, frontmatter, code } = post;
 
   return (
-    <PostLayout>
-      <h1 className='mb-2 text-primary'>{frontmatter.title}</h1>
-      <PostMeta frontmatter={frontmatter} />
+    <main className='mx-8'>
+      <PostLayout>
+        <h1 className='mb-2 text-primary'>{frontmatter.title}</h1>
+        <PostMeta frontmatter={frontmatter} />
 
-      <article className='article'>
-        <MdxComponent code={code} html={html} />
-      </article>
+        <article className='article'>
+          <MdxComponent code={code} html={html} />
+        </article>
 
-      <PostCopyright frontmatter={frontmatter} />
+        <PostCopyright frontmatter={frontmatter} />
 
-      <div className='flex my-2'>
-        <div>本文标签：</div>
-        <PostTags frontmatter={frontmatter} />
-      </div>
-    </PostLayout>
+        <div className='flex my-2'>
+          <div>本文标签：</div>
+          <PostTags frontmatter={frontmatter} />
+        </div>
+      </PostLayout>
+      <StickyShareButton />
+    </main>
   );
 }

@@ -7,6 +7,14 @@ import { bundleMDX } from 'mdx-bundler';
 import { createElement } from 'react';
 import { renderToString } from 'react-dom/server.js';
 import { getMDXComponent as getComponent } from 'mdx-bundler/client/index.js';
+// Plugins
+// Plugins
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import remarkGfm from 'remark-gfm';
+import remarkGithub from 'remark-github';
+import rehypePrismPlus from 'rehype-prism-plus';
+import remarkMermaid from './mermaid.mjs';
 
 // eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url);
@@ -93,7 +101,7 @@ const writeFile = (p, d) => fsp.writeFile(p, d, 'utf-8');
 
 const main = async () => {
   const n = new Date();
-  await fsp.rmdir(OUTPUT, { recursive: true }).catch(() => {});
+  await fsp.rm(OUTPUT, { recursive: true }).catch(() => {});
   await fsp.mkdir(OUTPUT, { recursive: true });
   const all = await getAllFiles();
   // Build
@@ -131,6 +139,26 @@ const main = async () => {
       source: content,
       files: Object.fromEntries(sourceFiles),
       xdmOptions(options) {
+        // eslint-disable-next-line no-param-reassign
+        options.rehypePlugins = [
+          ...(options.rehypePlugins ?? []),
+          rehypeSlug,
+          rehypeAutolinkHeadings,
+          [rehypePrismPlus, { ignoreMissing: true, showLineNumbers: true }]
+        ];
+        // eslint-disable-next-line no-param-reassign
+        options.remarkPlugins = [
+          ...(options.remarkPlugins ?? []),
+          remarkGfm,
+          [remarkGithub, { repository: 'willin/willin.wang' }],
+          [
+            remarkMermaid,
+            {
+              theme: 'dark'
+            }
+          ]
+        ];
+
         return options;
       }
     });

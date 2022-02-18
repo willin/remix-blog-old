@@ -1,16 +1,13 @@
 export * from './github';
+export * from './statistics';
 
 export type LoaderFunctionArgs = {
   request: Request;
   params: Params;
-  context: EventContext<
-    {
-      NODE_ENV?: string;
-      STATISTICS: KVNamespace;
-    },
-    string,
-    any
-  >;
+  context: EventContext<any, string, any> & {
+    NODE_ENV?: string;
+    STATISTICS: KVNamespace;
+  };
 };
 
 export type WFrontMatter = {
