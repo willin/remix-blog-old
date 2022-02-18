@@ -1,24 +1,17 @@
-export default function Index() {
-  return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a target='_blank' href='https://remix.run/tutorials/blog'>
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a target='_blank' href='https://remix.run/tutorials/jokes'>
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target='_blank' href='https://remix.run/docs'>
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
-  );
-}
+import { pick } from 'accept-language-parser';
+import { ActionFunction, LoaderFunction, redirect } from 'remix';
+import { i18n } from '~/i18n';
+
+export const action: ActionFunction = ({ request }) => {
+  const locale =
+    pick(i18n.supportedLanguages, request.headers.get('Accept-Language')) ||
+    i18n.fallbackLng;
+  return redirect(`/${locale}`);
+};
+
+export const loader: LoaderFunction = ({ request }) => {
+  const locale =
+    pick(i18n.supportedLanguages, request.headers.get('Accept-Language')) ||
+    i18n.fallbackLng;
+  return redirect(`/${locale}`);
+};

@@ -1,6 +1,15 @@
 module.exports = {
   apps: [
     {
+      name: 'Content',
+      script: 'node content.mjs',
+      cwd: './scripts',
+      watch: ['../content', '.'],
+      ignore_watch: ['node_modules'],
+      restart_delay: 1000,
+      autorestart: false
+    },
+    {
       name: 'Prisma',
       script: 'prisma generate',
       watch: ['./prisma'],
@@ -24,7 +33,7 @@ module.exports = {
     },
     {
       name: 'Cloudflare Wrangler',
-      script: 'wrangler pages dev ./public --kv CONTENTS',
+      script: 'wrangler pages dev ./public --kv STATISTICS',
       autorestart: false,
       ignore_watch: ['.'],
       env: {
