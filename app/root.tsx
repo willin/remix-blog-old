@@ -15,6 +15,7 @@ import { ThemeProvider } from '~/hooks/use-theme';
 import { ErrorLayout } from '~/layout/error';
 // eslint-disable-next-line import/no-unresolved
 import tailwindStyles from '~/styles/global.css';
+import { getMeta } from './services/content.server';
 
 export const meta: MetaFunction = () => ({
   title: i18n.t('site.title'),
@@ -28,9 +29,12 @@ export const links: LinksFunction = () => [
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await sessionStore.getSession(request.headers.get('Cookie'));
-  const theme = (session.get('theme') as string) || 'dark';
+  const theme = (session.get('theme') as string) || 'retro';
+  const meta = await getMeta({
+    url: request.url
+  });
 
-  return json({ theme });
+  return json({ theme, meta });
 };
 
 // https://remix.run/docs/en/v1/api/conventions#unstable_shouldreload

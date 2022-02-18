@@ -1,3 +1,7 @@
+import { useMatches } from 'remix';
+import clsx from 'classnames';
+import { useI18n } from 'remix-i18n';
+import { WMeta } from '~/types';
 import { LocaleLink } from './atom/locale-link';
 import {
   Github,
@@ -9,6 +13,10 @@ import {
 } from './others/svg';
 
 export function Footer() {
+  const { t } = useI18n();
+  const matches = useMatches();
+  const { posts = [] } = (matches?.[0]?.data?.meta as WMeta) || {};
+
   return (
     <footer className='p-4 sm:p-6 bg-base-200 text-base-content opacity-90'>
       <div className='md:flex md:justify-between'>
@@ -18,35 +26,34 @@ export function Footer() {
           </LocaleLink>
         </div>
         <div className='grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3'>
-          <div>
+          <div className={clsx({ hidden: posts.length === 0 })}>
             <ul>
-              <li className='mb-4'>
-                <h4 className='text-secondary'>Pages</h4>
-              </li>
-              <li>
-                <LocaleLink to='/about'>About</LocaleLink>
-              </li>
-              <li>
-                <LocaleLink to='/posts'>Posts</LocaleLink>
-              </li>
-              <li>
-                <LocaleLink to='/projects'>Projects</LocaleLink>
-              </li>
-              <li>
-                <LocaleLink to='/roadmap'>Roadmap</LocaleLink>
-              </li>
+              {posts
+                .filter((x) => x.type === 'pages')
+                .map((page) => (
+                  <li key={page.slug}>
+                    <LocaleLink to={`/${page.slug}`}>{page.title}</LocaleLink>
+                  </li>
+                ))}
             </ul>
           </div>
           <div>
             <ul>
-              <li className='mb-4'>
-                <h4 className='text-secondary'>Playground</h4>
+              <li>
+                <LocaleLink to='/'>{t('nav.home')}</LocaleLink>
               </li>
               <li>
-                <LocaleLink to='/playground/punycode'>Punycode</LocaleLink>
+                <LocaleLink to='/posts'>{t('nav.posts')}</LocaleLink>
+              </li>
+              <li>
+                <LocaleLink to='/projects'>{t('nav.projects')}</LocaleLink>
+              </li>
+              <li>
+                <LocaleLink to='/playground'>{t('nav.playground')}</LocaleLink>
               </li>
             </ul>
           </div>
+
           {/* <div>
             <ul>
               <li className='mb-4'>

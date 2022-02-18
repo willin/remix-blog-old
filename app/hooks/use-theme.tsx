@@ -102,7 +102,7 @@ export function ThemeProvider({
     }
 
     if (typeof window !== 'object') return null;
-    return window.matchMedia(prefersLightMQ).matches ? 'light' : 'dark';
+    return window.matchMedia(prefersLightMQ).matches ? 'valentine' : 'retro';
   });
 
   const mountRun = React.useRef(false);
@@ -124,7 +124,7 @@ export function ThemeProvider({
   useEffect(() => {
     const mediaQuery = window.matchMedia(prefersLightMQ);
     const handleChange = () => {
-      setTheme(mediaQuery.matches ? 'light' : 'dark');
+      setTheme(mediaQuery.matches ? 'valentine' : 'retro');
     };
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);

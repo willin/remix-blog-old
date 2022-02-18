@@ -1,3 +1,4 @@
+import clsx from 'classnames';
 import {
   THEMES_DARK,
   THEMES_LIGHT,
@@ -40,7 +41,11 @@ export function ThemeToggle() {
               <span>Dark</span>
             </li>
             {THEMES_DARK.map((t) => (
-              <li key={t}>
+              <li
+                key={t}
+                className={clsx({
+                  bordered: t.toLowerCase() === theme
+                })}>
                 <button onClick={onThemeClicked.bind(this, t.toLowerCase())}>
                   {THEME_ICONS[t]} {t}
                 </button>
@@ -54,7 +59,11 @@ export function ThemeToggle() {
               <span>Light</span>
             </li>
             {THEMES_LIGHT.map((t) => (
-              <li key={t}>
+              <li
+                key={t}
+                className={clsx({
+                  bordered: t.toLowerCase() === theme
+                })}>
                 <button onClick={onThemeClicked.bind(this, t.toLowerCase())}>
                   {THEME_ICONS[t]} {t}
                 </button>

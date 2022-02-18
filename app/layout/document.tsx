@@ -48,7 +48,9 @@ export function Document({
       <body>
         <div
           id='background'
-          className={clsx({ dark: THEMES_DARK.includes(theme) })}></div>
+          className={clsx({
+            dark: THEMES_DARK.map((x) => x.toLowerCase()).includes(theme)
+          })}></div>
         <Header />
         <div className='pt-20' style={{ minHeight: 'calc(100vh - 75px)' }}>
           {children}

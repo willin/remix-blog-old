@@ -35,3 +35,9 @@ export type WContent = {
   html: string;
   code?: string;
 };
+
+export type WMeta = {
+  words: number;
+  posts: WFrontMatter[];
+  tags: [string, number][];
+};

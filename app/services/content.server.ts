@@ -1,3 +1,5 @@
+import { getLocale } from '~/i18n';
+
 export type JSONObject = {
   [key: string | number]: string | number | boolean | JSONObject | JSONObject[];
 };
@@ -7,20 +9,28 @@ export default async function fetcher<JSON = JSONObject>(
   init?: RequestInit
 ): Promise<JSON> {
   const res = await fetch(input, init);
-  return res.json();
+  return res.json().catch(() => undefined);
 }
 
 const BASE_URL = '/_content/';
 
-export const getMeta = (host: string, locale: string) =>
-  fetcher(`${host}${BASE_URL}${locale}/meta.json`);
+export const getMeta = (meta: { url: string; locale?: string }) => {
+  const { url } = meta;
+  const u = new URL(url);
+  const { locale = getLocale(u.pathname) } = meta;
+  return fetcher(`${u.protocol}//${u.host}${BASE_URL}${locale}/meta.json`);
+};
 
 export const getContent = (meta: {
-  host: string;
-  locale: string;
+  url: string;
   type: string;
   slug: string;
+  locale?: string;
 }) => {
-  const { host, locale, type, slug } = meta;
-  return fetcher(`${host}${BASE_URL}${locale}/${type}/${slug}.json`);
+  const { url, type, slug } = meta;
+  const u = new URL(url);
+  const { locale = getLocale(u.pathname) } = meta;
+  return fetcher(
+    `${u.protocol}//${u.host}${BASE_URL}${locale}/${type}/${slug}.json`
+  );
 };

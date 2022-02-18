@@ -18,10 +18,10 @@ export function Navbar() {
       <div className='hidden px-2 mx-2 navbar-center lg:flex'>
         <div className='flex items-stretch'>
           <RouteLink to='/'>{t('nav.home')}</RouteLink>
-          <RouteLink to='/posts'>Posts</RouteLink>
-          <RouteLink to='/projects'>Projects</RouteLink>
-          <RouteLink to='/about'>About</RouteLink>
-          <RouteLink to='/roadmap'>Roadmap</RouteLink>
+          <RouteLink to='/posts'>{t('nav.posts')}</RouteLink>
+          <RouteLink to='/projects'>{t('nav.projects')}</RouteLink>
+          <RouteLink to='/playground'>{t('nav.playground')}</RouteLink>
+          <RouteLink to='/about'>{t('nav.about')}</RouteLink>
         </div>
       </div>
       <div className='navbar-end'>

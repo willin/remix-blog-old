@@ -11,7 +11,7 @@ export const action: ActionFunction = async ({ request }) => {
         request.headers.get('Cookie')
       );
       const data: { theme: string } = await request.json();
-      const theme = THEMES.includes(data.theme) ? data.theme : 'dark';
+      const theme = THEMES.includes(data.theme) ? data.theme : 'retro';
       session.set('theme', theme);
       return json(
         { success: true },
