@@ -1,11 +1,9 @@
 import { RemixI18n } from 'remix-i18n';
 import { i18n as zh } from '~/i18n/zh';
 import { i18n as en } from '~/i18n/en';
+import { config, languages } from '~/i18n/index';
 
-export const i18n = new RemixI18n({
-  supportedLanguages: ['en', 'zh'],
-  fallbackLng: 'zh'
-});
+export const i18n = new RemixI18n(config);
 
 export function getLocale(pathname: string): string {
   const [, locale = ''] = pathname.split('/');
@@ -17,3 +15,5 @@ export function getLocale(pathname: string): string {
 
 i18n.set('zh', zh);
 i18n.set('en', en);
+
+export { languages };

@@ -7,7 +7,7 @@ export const i18n: I18nDict = {
     description: 'Non-well-known open source technology blog'
   },
   nav: {
-    home: '主页'
+    home: 'Home'
   },
   toast: {
     loading: 'Loading...'

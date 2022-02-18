@@ -1,5 +1,6 @@
-import { Link } from 'remix';
 import { useI18n } from 'remix-i18n';
+import { LocaleLink } from '../atom/locale-link';
+import { LocaleToggle } from './locale-toggle';
 import { RouteLink } from './route-link';
 import { ThemeToggle } from './theme-toggle';
 
@@ -10,9 +11,9 @@ export function Navbar() {
   return (
     <div className='navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box'>
       <div className='px-2 mx-2 navbar-start'>
-        <Link to='/'>
+        <LocaleLink to='/'>
           <span className='text-lg font-bold'>Willin Wang</span>
-        </Link>
+        </LocaleLink>
       </div>
       <div className='hidden px-2 mx-2 navbar-center lg:flex'>
         <div className='flex items-stretch'>
@@ -24,7 +25,8 @@ export function Navbar() {
         </div>
       </div>
       <div className='navbar-end'>
-        <ThemeToggle></ThemeToggle>
+        <ThemeToggle />
+        <LocaleToggle />
       </div>
     </div>
   );
