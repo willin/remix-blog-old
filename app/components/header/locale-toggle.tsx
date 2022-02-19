@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'remix';
+import { useLocation } from 'remix';
 import { getLocale, languages } from '~/i18n';
 
 export function LocaleToggle() {
@@ -33,7 +33,7 @@ export function LocaleToggle() {
           <ul>
             {Object.entries(languages).map(([locale, text]) => (
               <li key={locale}>
-                <Link to={`/${locale}${path}`}>{text}</Link>
+                <a href={`/${locale}${path}`}>{text}</a>
               </li>
             ))}
           </ul>
