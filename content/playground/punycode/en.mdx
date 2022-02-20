@@ -1,5 +1,19 @@
+---
+title: Punycode Converter
+date: '2022-02-05'
+---
+
+import { Form } from './component';
+
+Converter Tool:
+
+<Form />
+
+Source code:
+
+```tsx
+import punycode from 'punycode';
 import { useEffect, useState } from 'react';
-import { punycode } from './punycode.ts';
 
 export function Form() {
   const [unicode, setUnicode] = useState('');
@@ -31,13 +45,13 @@ export function Form() {
         </label>
         <input
           type='text'
-          placeholder='中文域名 Unicode'
+          placeholder='中文域名'
           value={unicode}
           onChange={(e) => {
             setSettingUnicode(true);
             setUnicode(e.target.value);
           }}
-          className='input input-bordered text-secondary input-secondary'
+          className='input input-bordered text-secondary'
         />
       </div>
 
@@ -47,15 +61,15 @@ export function Form() {
         </label>
         <input
           type='text'
-          placeholder='Punycode 转码域名 ASCII'
+          placeholder='Punycode 转码域名'
           value={ascii}
           onChange={(e) => {
             setSettingAscii(true);
             setAscii(e.target.value);
           }}
-          className='input input-bordered text-secondary input-secondary'
+          className='input input-bordered text-secondary'
         />
       </div>
     </div>
   );
-}
+```

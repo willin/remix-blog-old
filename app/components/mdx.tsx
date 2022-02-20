@@ -49,12 +49,12 @@ export function MdxComponent({ code, html }: { code?: string; html: string }) {
   return (
     <>
       {Component ? (
-        <div>
+        <div className='py-8'>
           <Component />
         </div>
       ) : (
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+        <div className='py-8' dangerouslySetInnerHTML={{ __html: html }} />
       )}
     </>
   );

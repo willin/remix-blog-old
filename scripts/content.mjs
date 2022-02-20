@@ -212,7 +212,9 @@ const main = async () => {
       path.resolve(OUTPUT, locale, 'meta.json'),
       JSON.stringify({
         words,
-        posts: totalPosts[locale],
+        posts: totalPosts[locale].sort((a, b) =>
+          new Date(a.date) > new Date(b.date) ? -1 : 1
+        ),
         tags
       })
     );

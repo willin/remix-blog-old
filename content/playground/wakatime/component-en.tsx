@@ -5,25 +5,25 @@ export function Wakatime() {
     <>
       <div className='shadow stats stats-vertical lg:stats-horizontal'>
         <div className='stat'>
-          <div className='stat-title'>编码最长一天</div>
+          <div className='stat-title'>Best day</div>
           <div className='stat-value'>{data.best_day.text}</div>
           <div className='stat-desc'>{data.best_day.date}</div>
         </div>
 
         <div className='stat'>
-          <div className='stat-title'>编码总时长</div>
+          <div className='stat-title'>Total Time</div>
           <div className='stat-value'>
             {data.human_readable_total_including_other_language}
           </div>
-          <div className='stat-desc'>最近 7 天</div>
+          <div className='stat-desc'>Latest 7 days</div>
         </div>
 
         <div className='stat'>
-          <div className='stat-title'>平均编码时长</div>
+          <div className='stat-title'>Daily Average</div>
           <div className='stat-value'>
             {data.human_readable_daily_average_including_other_language}
           </div>
-          <div className='stat-desc'>最近 7 天</div>
+          <div className='stat-desc'>Latest 7 days</div>
         </div>
       </div>
       <div className='flex'>
