@@ -3,6 +3,87 @@ title: Wakatime
 date: '2022-02-10'
 ---
 
-import { Languages } from './component';
+import { Wakatime } from './component';
 
-<Languages />
+<Wakatime />
+
+```tsx
+import data from './data';
+
+export function Wakatime() {
+  return (
+    <>
+      <div className='shadow stats stats-vertical lg:stats-horizontal'>
+        <div className='stat'>
+          <div className='stat-title'>编码最长一天</div>
+          <div className='stat-value'>{data.best_day.text}</div>
+          <div className='stat-desc'>{data.best_day.date}</div>
+        </div>
+
+        <div className='stat'>
+          <div className='stat-title'>编码总时长</div>
+          <div className='stat-value'>
+            {data.human_readable_total_including_other_language}
+          </div>
+          <div className='stat-desc'>最近 7 天</div>
+        </div>
+
+        <div className='stat'>
+          <div className='stat-title'>平均编码时长</div>
+          <div className='stat-value'>
+            {data.human_readable_daily_average_including_other_language}
+          </div>
+          <div className='stat-desc'>最近 7 天</div>
+        </div>
+      </div>
+      <div className='flex'>
+        <div className='mr-4 overflow-x-auto'>
+          <table className='table w-full'>
+            <thead>
+              <tr>
+                <th>Language</th>
+                <th>Time</th>
+                <th>Percent</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.languages
+                .sort((a, b) => (a.percent > b.percent ? -1 : 1))
+                .map((item) => (
+                  <tr key={item.name}>
+                    <th>{item.name}</th>
+                    <td>{item.text}</td>
+                    <td>{item.percent}%</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className='overflow-x-auto'>
+          <table className='table w-full'>
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Time</th>
+                <th>Percent</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.projects
+                .sort((a, b) => (a.percent > b.percent ? -1 : 1))
+                .map((item) => (
+                  <tr key={item.name}>
+                    <th>{item.name}</th>
+                    <td>{item.text}</td>
+                    <td>{item.percent}%</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
+  );
+}
+```
