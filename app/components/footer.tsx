@@ -87,6 +87,13 @@ export function Footer() {
               target='_blank'
               rel='noopener noreferrer'>
               Remix
+            </a>{' '}
+            |{' '}
+            <a
+              href='https://beian.miit.gov.cn/'
+              target='_blank'
+              rel='noopener noreferrer'>
+              苏ICP备17011988号-1
             </a>
           </small>
         </span>
